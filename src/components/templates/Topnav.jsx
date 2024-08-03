@@ -1,18 +1,23 @@
 import axios from "../../utils/axios";
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-
+import noImageAvailable from "../../assets/noImageAvailable.jpg";
 const Topnav = () => {
   const [query, setQuery] = useState("");
   const [search, setSearch] = useState([]);
 
   const getSearch = async () => {
     try {
-      const { data } = await axios.get(`/search/multi?query=${query}`);
-      console.log("Data", data);
-      setSearch(data.results);
+      if (query.trim() !== "") {
+        const { data } = await axios.get(`/search/multi?query=${query}`);
+        console.log("Data", data);
+        setSearch(data.results);
+      } else {
+        setSearch([]);
+      }
     } catch (error) {
       console.log("Error : ", error);
+      setSearch([]);
     }
   };
 
@@ -49,11 +54,15 @@ const Topnav = () => {
                 className="hover:bg-[#3A3A3A] duration-300 text-zinc-300 font-semibold w-full p-4 flex items-center border-b border-zinc-600"
               >
                 <img
-                  src={`https://image.tmdb.org/t/p/w92${
+                  src={
                     item.poster_path || item.profile_path
-                  }`}
+                      ? `https://image.tmdb.org/t/p/w92${
+                          item.poster_path || item.profile_path
+                        }`
+                      : noImageAvailable
+                  }
                   alt={item.name || item.title}
-                  className="w-10 h-14 object-cover mr-3 bg-zinc-600 rounded"
+                  className="w-10 h-14 object-cover mr-3 bg-zinc-600 rounded shadow-lg"
                 />
                 <span>
                   {item.name ||
