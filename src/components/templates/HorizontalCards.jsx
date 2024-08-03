@@ -4,17 +4,17 @@ const HorizontalCards = ({ trending, error, onRetry }) => {
   const errorCards = Array(7).fill(null);
 
   return (
-    <div className="w-full h-[54vh] p-[44px]">
-      <div className="mb-5 flex items-center justify-between">
-        {error && (
+    <div className="w-full h-[54vh] p-[44px] pt-4">
+      {error && (
+        <div className="mb-4">
           <button
             onClick={onRetry}
             className="bg-blue-600 hover:bg-blue-700 text-white text-xs font-bold py-1 px-2 rounded transition-colors flex items-center"
           >
             <i className="ri-refresh-line mr-1"></i> Retry
           </button>
-        )}
-      </div>
+        </div>
+      )}
       <div className="flex space-x-4 overflow-x-auto">
         {error
           ? errorCards.map((_, index) => (

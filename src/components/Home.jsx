@@ -7,14 +7,15 @@ import HeaderShimmer from "./templates/HeaderShimmer";
 import { ErrorDisplay } from "./templates/ErrorDisplay";
 import HorizontalCards from "./templates/HorizontalCards";
 import HorizontalCardsShimmer from "./templates/HorizontalCardsShimmer";
+import Filtering from "./templates/Filtering";
 
 const Home = () => {
   document.title = "Movie Mind | Rizon";
 
   const [wallpaper, setWallpaper] = useState(null);
   const [trending, setTrending] = useState(null);
+  const [category, setCategory] = useState("all");
   const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(null);
 
   const [wallpaperLoading, setWallpaperLoading] = useState(true);
   const [trendingLoading, setTrendingLoading] = useState(true);
@@ -41,7 +42,7 @@ const Home = () => {
   const getTrending = async () => {
     setTrendingLoading(true);
     try {
-      const { data } = await axios.get(`/trending/all/day`);
+      const { data } = await axios.get(`/trending/${category}/day`);
       setTrending(data.results);
       setTrendingError(null);
     } catch (error) {
@@ -54,22 +55,18 @@ const Home = () => {
       setTrendingLoading(false);
     }
   };
-  const handleRetry = () => {
-    setLoading(true);
-    setError(null);
-    getHeaderWallpaper();
-    getTrending();
-  };
 
   useEffect(() => {
-    const fetchData = async () => {
-      setLoading(true);
-      await Promise.all([getHeaderWallpaper(), getTrending()]);
-      setLoading(false);
-    };
+    getTrending();
+  }, [category]);
 
-    fetchData();
+  useEffect(() => {
+    getHeaderWallpaper();
   }, []);
+
+  const handleCategoryChange = (newCategory) => {
+    setCategory(newCategory);
+  };
 
   return (
     <>
@@ -83,6 +80,14 @@ const Home = () => {
         ) : (
           <Headers data={wallpaper} />
         )}
+        <div className="flex justify-between items-center p-[44px] pb-0 relative z-40">
+          <h1 className="text-3xl text-zinc-400 font-semibold">Trending</h1>
+          <Filtering
+            title="Filter"
+            options={["tv", "movie", "all"]}
+            onCategoryChange={handleCategoryChange}
+          />
+        </div>
         {trendingLoading ? (
           <HorizontalCardsShimmer />
         ) : (
@@ -96,4 +101,5 @@ const Home = () => {
     </>
   );
 };
+
 export default Home;
