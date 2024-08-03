@@ -56,7 +56,7 @@ Movie Mind is a modern, responsive web application for discovering and exploring
    yarn start
    ```
 
-5. Open [http://localhost:3000](http://localhost:3000) to view the app in your browser.
+5. Open [http://localhost:5173](http://localhost:5173) to view the app in your browser.
 
 ## Project Structure
 
