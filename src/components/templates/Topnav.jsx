@@ -10,7 +10,7 @@ const Topnav = () => {
     try {
       if (query.trim() !== "") {
         const { data } = await axios.get(`/search/multi?query=${query}`);
-        console.log("Data", data);
+        // console.log("Data", data);
         setSearch(data.results);
       } else {
         setSearch([]);
@@ -28,7 +28,7 @@ const Topnav = () => {
     return () => clearTimeout(timeoutId);
   }, [query]);
 
-  console.log("Query", query);
+  // console.log("Query", query);
 
   return (
     <div className="w-full h-[6vh] relative cursor-zoom-in z-50 flex justify-center items-center bg-[#1F1F1F] px-4">
