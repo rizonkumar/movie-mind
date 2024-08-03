@@ -13,12 +13,14 @@ const Cards = ({ data, title, type }) => {
         {data.map((item, index) => (
           <Link
             key={index}
-            to={`/${item.media_type || title.toLowerCase()}/${item.id}`}
+            to={`/${type.toLowerCase()}/${item.id}`}
             className="group"
           >
             <div className="bg-gray-800 rounded-lg overflow-hidden shadow-lg transition-transform duration-300 group-hover:scale-105 h-full flex flex-col relative">
               <img
-                src={`https://image.tmdb.org/t/p/w500${item.poster_path}`}
+                src={`https://image.tmdb.org/t/p/w500${
+                  item.poster_path || item.profile_path || item.backdrop_path
+                }`}
                 alt={item.title || item.name}
                 className="w-full aspect-[2/3] object-cover"
               />
@@ -31,16 +33,28 @@ const Cards = ({ data, title, type }) => {
                     <i className="ri-fire-fill mr-1 text-red-500"></i>
                     {item.popularity.toFixed(1)}
                   </span>
-                  <span title="Vote Average" className="flex items-center">
-                    <i className="ri-star-fill mr-1 text-yellow-500"></i>
-                    {item.vote_average.toFixed(1)}
-                  </span>
-                  <span title="Release Date" className="flex items-center">
-                    <i className="ri-calendar-event-fill mr-1 text-green-500"></i>
-                    {new Date(
-                      item.release_date || item.first_air_date
-                    ).getFullYear()}
-                  </span>
+                  {type !== "person" && (
+                    <>
+                      <span title="Vote Average" className="flex items-center">
+                        <i className="ri-star-fill mr-1 text-yellow-500"></i>
+                        {item.vote_average?.toFixed(1) || "N/A"}
+                      </span>
+                      <span title="Release Date" className="flex items-center">
+                        <i className="ri-calendar-event-fill mr-1 text-green-500"></i>
+                        {item.release_date || item.first_air_date
+                          ? new Date(
+                              item.release_date || item.first_air_date
+                            ).getFullYear()
+                          : "N/A"}
+                      </span>
+                    </>
+                  )}
+                  {type === "person" && (
+                    <span title="Known For" className="flex items-center">
+                      <i className="ri-film-fill mr-1 text-blue-500"></i>
+                      {item.known_for_department || "N/A"}
+                    </span>
+                  )}
                 </div>
               </div>
             </div>
