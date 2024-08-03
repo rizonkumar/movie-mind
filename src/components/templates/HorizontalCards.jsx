@@ -6,7 +6,6 @@ const HorizontalCards = ({ trending, error, onRetry }) => {
   return (
     <div className="w-full h-[54vh] p-[44px]">
       <div className="mb-5 flex items-center justify-between">
-        <h1 className="text-3xl text-zinc-400 font-semibold">Trending</h1>
         {error && (
           <button
             onClick={onRetry}
