@@ -9,6 +9,7 @@ import CardsShimmer from "./templates/CardsShimmer";
 import { ErrorDisplay } from "./templates/ErrorDisplay";
 
 const Trending = () => {
+  document.title = "Move Mind | Trending";
   const navigate = useNavigate();
   const [category, setCategory] = useState("all");
   const [duration, setDuration] = useState("day");
@@ -110,7 +111,7 @@ const Trending = () => {
             scrollableTarget="scrollableDiv"
             style={{ overflow: "visible" }}
           >
-            <Cards data={trending} title={category} />
+            <Cards data={trending} title={category} type="Trending" />
           </InfiniteScroll>
         )}
       </div>
