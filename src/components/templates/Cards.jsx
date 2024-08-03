@@ -1,19 +1,19 @@
 import React from "react";
 import { Link } from "react-router-dom";
 
-const Cards = ({ data, title }) => {
+const Cards = ({ data, title, type }) => {
   if (!data) return null;
 
   return (
     <div className="mt-8 px-4">
       <h2 className="text-2xl font-bold text-white mb-4 sticky top-0 bg-[#1F1F1F] py-2">
-        Trending {title}
+        {type} {title}
       </h2>
       <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-4 pb-8">
         {data.map((item, index) => (
           <Link
             key={index}
-            to={`/${item.media_type}/${item.id}`}
+            to={`/${item.media_type || title.toLowerCase()}/${item.id}`}
             className="group"
           >
             <div className="bg-gray-800 rounded-lg overflow-hidden shadow-lg transition-transform duration-300 group-hover:scale-105 h-full flex flex-col relative">
