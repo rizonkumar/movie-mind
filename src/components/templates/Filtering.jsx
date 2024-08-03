@@ -1,11 +1,11 @@
 import React, { useState } from "react";
 
-const Filtering = ({ title, options, onCategoryChange }) => {
+const Filtering = ({ title, options, onCategoryChange, selectedOption }) => {
   const [isOpen, setIsOpen] = useState(false);
-  const [selectedOption, setSelectedOption] = useState("all");
+
+  console.log("Selected option", selectedOption);
 
   const handleOptionClick = (option) => {
-    setSelectedOption(option);
     onCategoryChange(option);
     setIsOpen(false);
   };
@@ -17,7 +17,7 @@ const Filtering = ({ title, options, onCategoryChange }) => {
         className="inline-flex items-center justify-between w-34 px-4 py-2 text-sm font-medium text-white bg-gray-800 rounded-md hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-800 focus:ring-blue-500"
         onClick={() => setIsOpen(!isOpen)}
       >
-        {title}: {selectedOption.toUpperCase()}
+        {title}: {selectedOption ? selectedOption.toUpperCase() : "ALL"}
         <i
           className={`ri-arrow-down-s-line ml-2 transition-transform duration-200 ${
             isOpen ? "rotate-180" : ""

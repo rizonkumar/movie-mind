@@ -86,6 +86,7 @@ const Home = () => {
             title="Filter"
             options={["tv", "movie", "all"]}
             onCategoryChange={handleCategoryChange}
+            selectedOption={category}
           />
         </div>
         {trendingLoading ? (
