@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 
-const Dropdown = ({ title, options, onCategoryChange }) => {
+const Filtering = ({ title, options, onCategoryChange }) => {
   const [isOpen, setIsOpen] = useState(false);
   const [selectedOption, setSelectedOption] = useState("all");
 
@@ -56,4 +56,4 @@ const Dropdown = ({ title, options, onCategoryChange }) => {
   );
 };
 
-export default Dropdown;
+export default Filtering;
