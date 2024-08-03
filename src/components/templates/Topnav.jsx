@@ -33,11 +33,11 @@ const Topnav = () => {
   return (
     <div className="w-full h-[6vh] relative cursor-zoom-in z-50 flex justify-center items-center bg-[#1F1F1F] px-4">
       <div className="relative flex items-center w-full max-w-3xl">
-        <i className="absolute left-3 text-zinc-400 text-xl ri-search-2-fill"></i>
+        <i className="absolute left-3 top-6 text-zinc-400 text-xl ri-search-2-fill"></i>
         <input
           onChange={(e) => setQuery(e.target.value)}
           value={query}
-          className="w-full py-2 pl-10 pr-10 text-lg bg-[#2C2C2C] text-white outline-none border-none rounded-full"
+          className="w-full py-2 pl-10 pr-10 text-lg bg-[#2C2C2C] text-white outline-none border-none rounded-full mt-4"
           type="text"
           placeholder="Search anything..."
         />
