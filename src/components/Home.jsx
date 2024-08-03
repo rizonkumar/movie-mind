@@ -10,7 +10,7 @@ import HorizontalCardsShimmer from "./templates/HorizontalCardsShimmer";
 import Filtering from "./templates/Filtering";
 
 const Home = () => {
-  document.title = "Movie Mind | Rizon";
+  document.title = "Movie Mind | Home ~ Rizon";
 
   const [wallpaper, setWallpaper] = useState(null);
   const [trending, setTrending] = useState(null);
