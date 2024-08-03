@@ -6,7 +6,7 @@ const Headers = ({ data }) => {
 
   return (
     <div
-      className="w-full h-[60vh] flex flex-col justify-end p-[5%] relative overflow-hidden"
+      className="w-full h-[40vh] flex flex-col justify-end p-[5%] relative overflow-hidden"
       style={{
         background: `linear-gradient(rgba(0,0,0,0.2), rgba(0,0,0,0.5), rgba(0,0,0,0.8)), url(https://image.tmdb.org/t/p/original/${
           data?.backdrop_path || data?.profile_path
