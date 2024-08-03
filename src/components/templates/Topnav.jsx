@@ -22,7 +22,10 @@ const Topnav = () => {
   };
 
   useEffect(() => {
-    getSearch();
+    const timeoutId = setTimeout(() => {
+      getSearch();
+    }, 500);
+    return () => clearTimeout(timeoutId);
   }, [query]);
 
   console.log("Query", query);
