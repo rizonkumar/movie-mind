@@ -69,37 +69,46 @@ const Home = () => {
   };
 
   return (
-    <div className="flex flex-col md:flex-row bg-[#1F1E24] min-h-screen">
+    <div className="flex flex-col md:flex-row bg-[#1F1E24] min-h-screen w-screen">
       <Sidenav />
-      <div className="w-full md:w-[85%] h-screen overflow-auto overflow-x-hidden">
+      <div className="flex-grow w-full md:w-[85%] h-screen overflow-y-auto overflow-x-hidden">
         <Topnav />
-        {wallpaperLoading ? (
-          <HeaderShimmer />
-        ) : wallpaperError ? (
-          <ErrorDisplay message={wallpaperError} onRetry={getHeaderWallpaper} />
-        ) : (
-          <Headers data={wallpaper} />
-        )}
-        <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center p-4 sm:p-[44px] pb-0 relative z-40">
-          <h1 className="text-2xl sm:text-3xl text-zinc-400 font-semibold mb-4 sm:mb-0">
-            Trending
-          </h1>
-          <Filtering
-            title="Filter"
-            options={["tv", "movie", "all"]}
-            onCategoryChange={handleCategoryChange}
-            selectedOption={category}
-          />
+        <div className="w-full min-h-[calc(100vh-5rem)] bg-[#1F1E24]">
+          {wallpaperLoading ? (
+            <HeaderShimmer />
+          ) : wallpaperError ? (
+            <ErrorDisplay
+              message={wallpaperError}
+              onRetry={getHeaderWallpaper}
+            />
+          ) : (
+            <Headers data={wallpaper} />
+          )}
+          <div className="w-full px-4 md:px-[5%]">
+            <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center py-4 relative z-40">
+              <h1 className="text-2xl sm:text-3xl text-zinc-400 font-semibold mb-4 sm:mb-0">
+                Trending
+              </h1>
+              <div className="w-full sm:w-auto">
+                <Filtering
+                  title="Filter"
+                  options={["tv", "movie", "all"]}
+                  onCategoryChange={handleCategoryChange}
+                  selectedOption={category}
+                />
+              </div>
+            </div>
+            {trendingLoading ? (
+              <HorizontalCardsShimmer />
+            ) : (
+              <HorizontalCards
+                trending={trending}
+                error={trendingError}
+                onRetry={getTrending}
+              />
+            )}
+          </div>
         </div>
-        {trendingLoading ? (
-          <HorizontalCardsShimmer />
-        ) : (
-          <HorizontalCards
-            trending={trending}
-            error={trendingError}
-            onRetry={getTrending}
-          />
-        )}
       </div>
     </div>
   );
