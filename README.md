@@ -1,4 +1,3 @@
-```markdown
 # Movie-Mind
 
 Movie-Mind is a comprehensive React-based web application for exploring movies, TV shows, and people in the entertainment industry. It leverages the TMDB API to provide up-to-date information on trending and popular content, as well as detailed information on specific titles and individuals.
@@ -58,103 +57,97 @@ Movie-Mind is a comprehensive React-based web application for exploring movies, 
     - Links to social media and other external platforms for more information
 
 ## Folder Structure
-```
 
+```plaintext
 MOVIE-MIND/
 │
 ├── public/
 │
 ├── src/
-│ ├── assets/
-│ ├── components/
-│ │ ├── common/
-│ │ │ ├── Cards/
-│ │ │ ├── ErrorDisplay/
-│ │ │ ├── Filtering/
-│ │ │ ├── Headers/
-│ │ │ ├── HorizontalCards/
-│ │ │ └── Navigation/
-│ │ ├── Home/
-│ │ ├── MovieDetails/
-│ │ ├── Movies/
-│ │ ├── People/
-│ │ ├── PeopleDetail/
-│ │ ├── Popular/
-│ │ ├── Trending/
-│ │ ├── TVDetail/
-│ │ └── TvShows/
-│ ├── store/
-│ │ ├── actions/
-│ │ │ ├── movieActions.jsx
-│ │ │ ├── personActions.jsx
-│ │ │ └── tvShowActions.jsx
-│ │ └── reducers/
-│ │ ├── movieSlice.jsx
-│ │ ├── personSlice.jsx
-│ │ └── tvShowSlice.jsx
-│ ├── utils/
-│ │ └── axios.jsx
-│ ├── App.css
-│ ├── App.jsx
-│ ├── index.css
-│ └── main.jsx
+│   ├── assets/
+│   ├── components/
+│   │   ├── common/
+│   │   │   ├── Cards/
+│   │   │   ├── ErrorDisplay/
+│   │   │   ├── Filtering/
+│   │   │   ├── Headers/
+│   │   │   ├── HorizontalCards/
+│   │   │   └── Navigation/
+│   │   ├── Home/
+│   │   ├── MovieDetails/
+│   │   ├── Movies/
+│   │   ├── People/
+│   │   ├── PeopleDetail/
+│   │   ├── Popular/
+│   │   ├── Trending/
+│   │   ├── TVDetail/
+│   │   └── TvShows/
+│   ├── store/
+│   │   ├── actions/
+│   │   │   ├── movieActions.jsx
+│   │   │   ├── personActions.jsx
+│   │   │   └── tvShowActions.jsx
+│   │   └── reducers/
+│   │       ├── movieSlice.jsx
+│   │       ├── personSlice.jsx
+│   │       └── tvShowSlice.jsx
+│   ├── utils/
+│   │   └── axios.jsx
+│   ├── App.css
+│   ├── App.jsx
+│   ├── index.css
+│   └── main.jsx
 │
 ├── .gitignore
 ├── index.html
 ├── package.json
 ├── README.md
 └── vite.config.js
-
 ```
 
 ## Installation and Setup
 
 1. Clone the repository:
-```
 
-git clone https://github.com/your-username/movie-mind.git
-
-```
+   ```bash
+   git clone https://github.com/your-username/movie-mind.git
+   ```
 
 2. Navigate to the project directory:
-```
 
-cd movie-mind
-
-```
+   ```bash
+   cd movie-mind
+   ```
 
 3. Install dependencies:
-```
 
-npm install
-
-```
+   ```bash
+   npm install
+   ```
 
 4. Create a `.env` file in the root directory and add your TMDB API token:
-```
 
-VITE_TMDB_API_TOKEN=your_api_token_here
-
-```
+   ```plaintext
+   VITE_TMDB_API_TOKEN=your_api_token_here
+   ```
 
 5. Start the development server:
-```
-
-npm run dev
-
-```
+   ```bash
+   npm run dev
+   ```
 
 ## Usage
 
 After starting the development server, open your browser and navigate to `http://localhost:5173` (or the port specified by Vite).
 
 Navigate through the application using the sidebar menu:
-- Home: Overview of trending and popular content
-- Trending: Latest trending movies and TV shows
-- Popular: Most popular movies and TV shows
-- Movies: Browse and filter movies
-- TV Shows: Browse and filter TV shows
-- People: Explore information about actors and crew members
+
+- **Home**: Overview of trending and popular content
+- **Trending**: Latest trending movies and TV shows
+- **Popular**: Most popular movies and TV shows
+- **Movies**: Browse and filter movies
+- **TV Shows**: Browse and filter TV shows
+- **People**: Explore information about actors and crew members
 
 Use the search bar in the top navigation to find specific content across all categories.
 
@@ -169,7 +162,7 @@ Use the search bar in the top navigation to find specific content across all cat
 
 ## API Integration
 
-This project uses the TMDB (The Movie Database) API. You'll need to sign up for an API key at [https://www.themoviedb.org/documentation/api](https://www.themoviedb.org/documentation/api) to run the application locally.
+This project uses the TMDB (The Movie Database) API. You'll need to sign up for an API key at [The Movie Database API](https://www.themoviedb.org/documentation/api) to run the application locally.
 
 ## Contributing
 
@@ -192,4 +185,7 @@ This project is licensed under the MIT License.
 - [Redux](https://redux.js.org/)
 - [Tailwind CSS](https://tailwindcss.com/)
 - [Vite](https://vitejs.dev/)
+
+```
+
 ```
