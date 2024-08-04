@@ -1,8 +1,8 @@
-export { removeMovie } from "../reducers/movieSlice";
 import axios from "../../utils/axios";
-import { loadMovie } from "../reducers/movieSlice";
+import { loadMovie, setLoading, setError } from "../reducers/movieSlice";
 
-export const asyncloadmovie = (id) => async (dispatch, getState) => {
+export const asyncloadmovie = (id) => async (dispatch) => {
+  dispatch(setLoading(true));
   try {
     const detail = await axios.get(`/movie/${id}`);
     const externalId = await axios.get(`/movie/${id}/external_ids`);
@@ -20,8 +20,10 @@ export const asyncloadmovie = (id) => async (dispatch, getState) => {
       watchProviders: watchProviders.data.results.IN,
     };
     dispatch(loadMovie(theUltimateDetails));
-    console.log("the ultmiate detais", theUltimateDetails);
   } catch (error) {
-    console.log("error", error);
+    console.error("Error loading movie:", error);
+    dispatch(setError("Unable to load movie details. Please try again."));
   }
 };
+
+export { removeMovie } from "../reducers/movieSlice";
