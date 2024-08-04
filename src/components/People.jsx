@@ -93,7 +93,7 @@ const People = () => {
             scrollableTarget="scrollableDiv"
             style={{ overflow: "visible" }}
           >
-            <Cards data={person} title={category} type="person" />
+            <Cards data={person} title="people" type="person" />
           </InfiniteScroll>
         )}
       </div>

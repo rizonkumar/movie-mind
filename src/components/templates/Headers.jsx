@@ -25,7 +25,10 @@ const Headers = ({ data }) => {
         </h1>
         <p className="w-[70%] text-lg text-gray-300 mb-6">
           {data?.overview.slice(0, 200) || "No Information to display"}...
-          <Link className="text-blue-400 hover:text-blue-300 transition-colors ml-2">
+          <Link
+            to={`${data.media_type}/details/${data.id}`}
+            className="text-blue-400 hover:text-blue-300 transition-colors ml-2"
+          >
             more
           </Link>
         </p>

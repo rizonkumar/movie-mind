@@ -101,7 +101,7 @@ const TvShows = () => {
             scrollableTarget="scrollableDiv"
             style={{ overflow: "visible" }}
           >
-            <Cards data={shows} title={category} type="shows" />
+            <Cards data={shows} title="tv" type="shows" />
           </InfiniteScroll>
         )}
       </div>

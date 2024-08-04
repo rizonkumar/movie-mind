@@ -17,15 +17,12 @@ function App() {
         <Route path="/" element={<Home />} />
         <Route path="/trending" element={<Trending />} />
         <Route path="/popular" element={<Popular />} />
-        <Route path="/movies" element={<Movies />}>
-          <Route path="/movie/details/:id" element={<Moviedetail />} />
-        </Route>
-        <Route path="/tvshows" element={<TvShows />}>
-          <Route path="/tv/details/:id" element={<TVdetail />} />
-        </Route>
-        <Route path="/people" element={<People />}>
-          <Route path="/people/details/:id" element={<Peopledetail />} />
-        </Route>
+        <Route path="/movies" element={<Movies />} />\
+        <Route path="/tvshows" element={<TvShows />} />
+        <Route path="/people" element={<People />} />
+        <Route path="/movie/details/:id" element={<Moviedetail />} />
+        <Route path="/tv/details/:id" element={<TVdetail />} />
+        <Route path="/people/details/:id" element={<Peopledetail />} />
       </Routes>
     </div>
   );

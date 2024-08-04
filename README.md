@@ -28,30 +28,38 @@ Movie Mind is a modern, responsive web application for discovering and exploring
 ### Installation
 
 1. Clone the repository:
+
    ```
    git clone https://github.com/rizonkumar/movie-mind.git
    cd movie-mind
    ```
 
 2. Install dependencies:
+
    ```
    npm install
    ```
+
    or if you're using yarn:
+
    ```
    yarn install
    ```
 
 3. Create a `.env` file in the root directory and add your TMDB API key:
+
    ```
    REACT_APP_TMDB_API_KEY=your_api_key_here
    ```
 
 4. Start the development server:
+
    ```
    npm start
    ```
+
    or
+
    ```
    yarn start
    ```
@@ -81,6 +89,13 @@ This project is licensed under the MIT License - see the [LICENSE.md](LICENSE.md
 
 - The Movie Database (TMDB) for providing the API
 - The React community for excellent documentation and resources
+
 ```
 
 This README provides an overview of your project, its features, the technologies used, setup instructions, and basic information about the project structure. You may want to adjust certain details like the repository URL, license information, or any specific instructions based on your project's needs.
+
+
+### Todo
+
+1. in h1 tag add trending with Dropdown OPtion for e.g. Trending Shows, Trending All (SHow + Movies), Trending Movies
+```

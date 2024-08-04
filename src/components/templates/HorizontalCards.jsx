@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 
 const HorizontalCards = ({ trending, error, onRetry }) => {
   const errorCards = Array(7).fill(null);
@@ -34,7 +35,8 @@ const HorizontalCards = ({ trending, error, onRetry }) => {
               </div>
             ))
           : trending.map((item) => (
-              <div
+              <Link
+                to={`/${item.media_type}/details/${item.id}`}
                 key={item.id}
                 className="flex-shrink-0 w-[15%] h-[40vh] bg-zinc-800 rounded overflow-hidden relative group"
               >
@@ -66,7 +68,7 @@ const HorizontalCards = ({ trending, error, onRetry }) => {
                     </span>
                   </div>
                 </div>
-              </div>
+              </Link>
             ))}
       </div>
     </div>
