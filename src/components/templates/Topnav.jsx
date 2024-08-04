@@ -53,7 +53,7 @@ const Topnav = () => {
             {search.map((item, index) => (
               <Link
                 key={index}
-                to={`/${item.media_type}/${item.id}`}
+                to={`/${item.media_type}/details/${item.id}`}
                 className="hover:bg-[#3A3A3A] duration-300 text-zinc-300 font-semibold w-full p-4 flex items-center border-b border-zinc-600"
               >
                 <img
