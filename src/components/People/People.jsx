@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import InfiniteScroll from "react-infinite-scroll-component";
-import CardsShimmer from "../common/Cards/CardsShimmer";
 import { ErrorDisplay } from "../common/ErrorDisplay/ErrorDisplay";
+import CardsShimmer from "../common/Cards/CardsShimmer";
 import Cards from "../common/Cards/Cards";
 
 const People = () => {

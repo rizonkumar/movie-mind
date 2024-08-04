@@ -37,6 +37,8 @@ const Moviedetail = () => {
 
   const { detail, externalId, videos, watchProviders, translations } = info;
 
+  console.log("Info", info);
+
   return (
     <div className="w-full min-h-screen bg-gray-900 text-white">
       <div
@@ -177,13 +179,13 @@ const Moviedetail = () => {
                 </div>
               </div>
             )}
-            {translations && translations.length > 0 && (
+            {translations && translations.translations && (
               <div className="mt-8">
                 <h3 className="text-2xl font-semibold mb-4">
                   Available Languages
                 </h3>
                 <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
-                  {translations.map((translation, index) => (
+                  {translations.translations.map((translation, index) => (
                     <div key={index} className="bg-gray-800 p-2 rounded">
                       <p>{translation.english_name}</p>
                     </div>
