@@ -16,12 +16,12 @@ const HorizontalCards = ({ trending, error, onRetry }) => {
           </button>
         </div>
       )}
-      <div className="grid grid-cols-1 sm:flex sm:space-x-4 sm:overflow-x-auto gap-4 sm:gap-0 pb-4">
+      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-6 gap-4 sm:gap-6">
         {error
           ? errorCards.map((_, index) => (
               <div
                 key={index}
-                className="w-full sm:w-[200px] md:w-[15%] h-[40vh] bg-zinc-800 rounded overflow-hidden flex flex-col items-center justify-center"
+                className="w-full h-[40vh] bg-zinc-800 rounded overflow-hidden flex flex-col items-center justify-center"
               >
                 <div className="text-red-500 text-4xl mb-2">
                   <i className="ri-error-warning-fill"></i>
@@ -38,7 +38,7 @@ const HorizontalCards = ({ trending, error, onRetry }) => {
               <Link
                 to={`/${item.media_type}/details/${item.id}`}
                 key={item.id}
-                className="w-full sm:w-[200px] md:w-[15%] h-[40vh] bg-zinc-800 rounded overflow-hidden relative group"
+                className="w-full h-[40vh] bg-zinc-800 rounded relative group"
               >
                 <img
                   src={`https://image.tmdb.org/t/p/w500${item.poster_path}`}
