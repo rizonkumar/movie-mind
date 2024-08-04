@@ -1,39 +1,39 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import InfiniteScroll from "react-infinite-scroll-component";
-import Topnav from "./templates/Topnav";
-import Filtering from "./templates/Filtering";
-import axios from "../utils/axios";
-import Cards from "./templates/Cards";
-import CardsShimmer from "./templates/CardsShimmer";
-import { ErrorDisplay } from "./templates/ErrorDisplay";
+import axios from "../../utils/axios";
+import Topnav from "../common/Navigation/Topnav";
+import Filtering from "../common/Filtering/Filtering";
+import CardsShimmer from "../common/Cards/CardsShimmer";
+import { ErrorDisplay } from "../common/ErrorDisplay/ErrorDisplay";
+import Cards from "../common/Cards/Cards";
 
-const Movies = () => {
-  document.title = "Move Mind | Movies";
+const Popular = () => {
+  document.title = "Move Mind | Popular";
 
   const navigate = useNavigate();
-  const [category, setCategory] = useState("now_playing");
-  const [movie, setMovie] = useState([]);
+  const [category, setCategory] = useState("movie");
+  const [popular, setPopular] = useState([]);
   const [page, setPage] = useState(1);
   const [hasMore, setHasMore] = useState(true);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
-  const getMovie = async (pageNum = 1) => {
+  const getPopular = async (pageNum = 1) => {
     try {
-      const { data } = await axios.get(`/movie/${category}`, {
+      const { data } = await axios.get(`/${category}/popular`, {
         params: { page: pageNum },
       });
       if (pageNum === 1) {
-        setMovie(data.results);
+        setPopular(data.results);
       } else {
-        setMovie((prev) => [...prev, ...data.results]);
+        setPopular((prev) => [...prev, ...data.results]);
       }
       setHasMore(data.page < data.total_pages);
       setError(null);
     } catch (error) {
-      console.error("Error fetching movie data:", error);
-      setError("Unable to load movie content. Please try again later.");
+      console.error("Error fetching popular data:", error);
+      setError("Unable to load popular content. Please try again later.");
     } finally {
       setLoading(false);
     }
@@ -41,9 +41,9 @@ const Movies = () => {
 
   useEffect(() => {
     setPage(1);
-    setMovie([]);
+    setPopular([]);
     setLoading(true);
-    getMovie(1);
+    getPopular(1);
   }, [category]);
 
   const handleCategoryChange = (newCategory) => {
@@ -53,7 +53,7 @@ const Movies = () => {
   const fetchMoreData = () => {
     if (!loading) {
       setPage((prev) => prev + 1);
-      getMovie(page + 1);
+      getPopular(page + 1);
     }
   };
 
@@ -65,7 +65,7 @@ const Movies = () => {
             onClick={() => navigate(-1)}
             className="ri-arrow-left-line hover:text-[#6556CD] cursor-pointer"
           ></i>
-          Movie
+          Popular
         </h1>
 
         <div className="flex items-center w-[80%]">
@@ -73,7 +73,7 @@ const Movies = () => {
           <div className="flex items-center space-x-4">
             <Filtering
               title="Category"
-              options={["popular", "top_rated", "upcoming", "now_playing"]}
+              options={["movie", "tv"]}
               onCategoryChange={handleCategoryChange}
               selectedOption={category}
             />
@@ -89,19 +89,19 @@ const Movies = () => {
             message={error}
             onRetry={() => {
               setPage(1);
-              getMovie(1);
+              getPopular(1);
             }}
           />
         ) : (
           <InfiniteScroll
-            dataLength={movie.length}
+            dataLength={popular.length}
             next={fetchMoreData}
             hasMore={hasMore}
             loader={<CardsShimmer />}
             scrollableTarget="scrollableDiv"
             style={{ overflow: "visible" }}
           >
-            <Cards data={movie} title="movie" type="Movie" />
+            <Cards data={popular} title={category} type="Popular" />
           </InfiniteScroll>
         )}
       </div>
@@ -109,4 +109,4 @@ const Movies = () => {
   );
 };
 
-export default Movies;
+export default Popular;

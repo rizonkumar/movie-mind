@@ -1,75 +1,9 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { asyncloadmovie, removeMovie } from "../store/actions/movieActions";
+import { asyncloadmovie, removeMovie } from "../../store/actions/movieActions";
 import { Link, useNavigate, useParams } from "react-router-dom";
-
-const Shimmer = () => (
-  <div className="w-full min-h-screen bg-gray-900 text-white">
-    <div className="w-full h-[50vh] lg:h-[70vh] bg-gray-800 animate-pulse"></div>
-    <div className="container mx-auto px-4 py-8 bg-gray-900">
-      <div className="flex flex-col md:flex-row gap-8">
-        <div className="w-full md:w-1/3 lg:w-1/4">
-          <div className="w-full aspect-[2/3] bg-gray-800 rounded-lg animate-pulse"></div>
-          <div className="mt-4 h-8 bg-gray-800 rounded animate-pulse"></div>
-          <div className="mt-2 flex gap-2">
-            {[...Array(4)].map((_, i) => (
-              <div
-                key={i}
-                className="w-10 h-10 bg-gray-800 rounded-full animate-pulse"
-              ></div>
-            ))}
-          </div>
-        </div>
-        <div className="w-full md:w-2/3 lg:w-3/4">
-          <div className="h-8 bg-gray-800 rounded animate-pulse mb-4"></div>
-          <div className="h-4 bg-gray-800 rounded animate-pulse mb-2"></div>
-          <div className="h-4 bg-gray-800 rounded animate-pulse mb-2"></div>
-          <div className="h-4 bg-gray-800 rounded animate-pulse mb-4"></div>
-          <div className="grid grid-cols-2 md:grid-cols-3 gap-4 mb-4">
-            {[...Array(6)].map((_, index) => (
-              <div key={index}>
-                <div className="h-4 bg-gray-800 rounded animate-pulse mb-1"></div>
-                <div className="h-3 bg-gray-800 rounded animate-pulse w-3/4"></div>
-              </div>
-            ))}
-          </div>
-          <div className="mt-8">
-            <div className="h-8 bg-gray-800 rounded animate-pulse mb-4"></div>
-            <div
-              className="aspect-w-16 aspect-h-9 bg-gray-800 rounded animate-pulse"
-              style={{ maxWidth: "560px", maxHeight: "315px" }}
-            ></div>
-          </div>
-          <div className="mt-8">
-            <div className="h-8 bg-gray-800 rounded animate-pulse mb-4"></div>
-            <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
-              {[...Array(12)].map((_, index) => (
-                <div
-                  key={index}
-                  className="h-8 bg-gray-800 rounded animate-pulse"
-                ></div>
-              ))}
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-);
-
-const ErrorDisplay = ({ message, onRetry }) => (
-  <div className="w-full h-screen flex flex-col justify-center items-center bg-gray-900 text-white">
-    <i className="ri-error-warning-fill text-6xl text-red-500 mb-4"></i>
-    <h2 className="text-2xl font-bold mb-2">Oops! Something went wrong</h2>
-    <p className="text-gray-400 mb-6">{message}</p>
-    <button
-      onClick={onRetry}
-      className="bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
-    >
-      Retry
-    </button>
-  </div>
-);
+import MovieDetailShimmer from "./MovieDetailShimmer";
+import MovieDetailError from "./MovieDetailError";
 
 const Moviedetail = () => {
   const navigate = useNavigate();
@@ -85,12 +19,12 @@ const Moviedetail = () => {
   }, [dispatch, id]);
 
   if (loading) {
-    return <Shimmer />;
+    return <MovieDetailShimmer />;
   }
 
   if (error) {
     return (
-      <ErrorDisplay
+      <MovieDetailError
         message={error}
         onRetry={() => dispatch(asyncloadmovie(id))}
       />

@@ -1,13 +1,13 @@
 import React, { useEffect, useState } from "react";
-import axios from "../utils/axios";
-import Sidenav from "./templates/Sidenav";
-import Topnav from "./templates/Topnav";
-import Headers from "./templates/Headers";
-import HeaderShimmer from "./templates/HeaderShimmer";
-import { ErrorDisplay } from "./templates/ErrorDisplay";
-import HorizontalCards from "./templates/HorizontalCards";
-import HorizontalCardsShimmer from "./templates/HorizontalCardsShimmer";
-import Filtering from "./templates/Filtering";
+import axios from "../../utils/axios";
+import Sidenav from "../common/Navigation/Sidenav";
+import Topnav from "../common/Navigation/Topnav";
+import HeaderShimmer from "../common/Headers/HeaderShimmer";
+import { ErrorDisplay } from "../common/ErrorDisplay/ErrorDisplay";
+import Headers from "../common/Headers/Headers";
+import Filtering from "../common/Filtering/Filtering";
+import HorizontalCardsShimmer from "../common/HorizontalCards/HorizontalCardsShimmer";
+import HorizontalCards from "../common/HorizontalCards/HorizontalCards";
 
 const Home = () => {
   document.title = "Movie Mind | Home ~ Rizon";

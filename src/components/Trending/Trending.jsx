@@ -1,39 +1,39 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import InfiniteScroll from "react-infinite-scroll-component";
-import Topnav from "./templates/Topnav";
-import Filtering from "./templates/Filtering";
-import axios from "../utils/axios";
-import Cards from "./templates/Cards";
-import CardsShimmer from "./templates/CardsShimmer";
-import { ErrorDisplay } from "./templates/ErrorDisplay";
+import axios from "../../utils/axios";
+import Topnav from "../common/Navigation/Topnav";
+import Filtering from "../common/Filtering/Filtering";
+import CardsShimmer from "../common/Cards/CardsShimmer";
+import { ErrorDisplay } from "../common/ErrorDisplay/ErrorDisplay";
+import Cards from "../common/Cards/Cards";
 
-const Popular = () => {
-  document.title = "Move Mind | Popular";
-
+const Trending = () => {
+  document.title = "Move Mind | Trending";
   const navigate = useNavigate();
-  const [category, setCategory] = useState("movie");
-  const [popular, setPopular] = useState([]);
+  const [category, setCategory] = useState("all");
+  const [duration, setDuration] = useState("day");
+  const [trending, setTrending] = useState([]);
   const [page, setPage] = useState(1);
   const [hasMore, setHasMore] = useState(true);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
-  const getPopular = async (pageNum = 1) => {
+  const getTrending = async (pageNum = 1) => {
     try {
-      const { data } = await axios.get(`/${category}/popular`, {
+      const { data } = await axios.get(`/trending/${category}/${duration}`, {
         params: { page: pageNum },
       });
       if (pageNum === 1) {
-        setPopular(data.results);
+        setTrending(data.results);
       } else {
-        setPopular((prev) => [...prev, ...data.results]);
+        setTrending((prev) => [...prev, ...data.results]);
       }
       setHasMore(data.page < data.total_pages);
       setError(null);
     } catch (error) {
-      console.error("Error fetching popular data:", error);
-      setError("Unable to load popular content. Please try again later.");
+      console.error("Error fetching trending data:", error);
+      setError("Unable to load trending content. Please try again later.");
     } finally {
       setLoading(false);
     }
@@ -41,19 +41,23 @@ const Popular = () => {
 
   useEffect(() => {
     setPage(1);
-    setPopular([]);
+    setTrending([]);
     setLoading(true);
-    getPopular(1);
-  }, [category]);
+    getTrending(1);
+  }, [category, duration]);
 
   const handleCategoryChange = (newCategory) => {
     setCategory(newCategory);
   };
 
+  const handleDurationChange = (newDuration) => {
+    setDuration(newDuration);
+  };
+
   const fetchMoreData = () => {
     if (!loading) {
       setPage((prev) => prev + 1);
-      getPopular(page + 1);
+      getTrending(page + 1);
     }
   };
 
@@ -65,7 +69,7 @@ const Popular = () => {
             onClick={() => navigate(-1)}
             className="ri-arrow-left-line hover:text-[#6556CD] cursor-pointer"
           ></i>
-          Popular
+          Trending
         </h1>
 
         <div className="flex items-center w-[80%]">
@@ -73,9 +77,15 @@ const Popular = () => {
           <div className="flex items-center space-x-4">
             <Filtering
               title="Category"
-              options={["movie", "tv"]}
+              options={["movie", "tv", "all"]}
               onCategoryChange={handleCategoryChange}
               selectedOption={category}
+            />
+            <Filtering
+              title="Duration"
+              options={["week", "day"]}
+              onCategoryChange={handleDurationChange}
+              selectedOption={duration}
             />
           </div>
         </div>
@@ -89,19 +99,19 @@ const Popular = () => {
             message={error}
             onRetry={() => {
               setPage(1);
-              getPopular(1);
+              getTrending(1);
             }}
           />
         ) : (
           <InfiniteScroll
-            dataLength={popular.length}
+            dataLength={trending.length}
             next={fetchMoreData}
             hasMore={hasMore}
             loader={<CardsShimmer />}
             scrollableTarget="scrollableDiv"
             style={{ overflow: "visible" }}
           >
-            <Cards data={popular} title={category} type="Popular" />
+            <Cards data={trending} title={category} type="Trending" />
           </InfiniteScroll>
         )}
       </div>
@@ -109,4 +119,4 @@ const Popular = () => {
   );
 };
 
-export default Popular;
+export default Trending;

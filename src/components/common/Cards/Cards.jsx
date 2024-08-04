@@ -4,8 +4,6 @@ import { Link } from "react-router-dom";
 const Cards = ({ data, title, type }) => {
   if (!data) return null;
 
-  console.log("Data from cards", data);
-  console.log("Title from cards", title);
   return (
     <div className="mt-8 px-4">
       <h2 className="text-2xl font-bold text-white mb-4 sticky top-0 bg-[#1F1F1F] py-2">

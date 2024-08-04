@@ -1,39 +1,36 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import InfiniteScroll from "react-infinite-scroll-component";
-import Topnav from "./templates/Topnav";
-import Filtering from "./templates/Filtering";
-import axios from "../utils/axios";
-import Cards from "./templates/Cards";
-import CardsShimmer from "./templates/CardsShimmer";
-import { ErrorDisplay } from "./templates/ErrorDisplay";
+import CardsShimmer from "../common/Cards/CardsShimmer";
+import { ErrorDisplay } from "../common/ErrorDisplay/ErrorDisplay";
+import Cards from "../common/Cards/Cards";
 
-const Trending = () => {
-  document.title = "Move Mind | Trending";
+const People = () => {
+  document.title = "Move Mind | person";
+
   const navigate = useNavigate();
-  const [category, setCategory] = useState("all");
-  const [duration, setDuration] = useState("day");
-  const [trending, setTrending] = useState([]);
+  const [category, setCategory] = useState("popular");
+  const [person, setPerson] = useState([]);
   const [page, setPage] = useState(1);
   const [hasMore, setHasMore] = useState(true);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
-  const getTrending = async (pageNum = 1) => {
+  const getPerson = async (pageNum = 1) => {
     try {
-      const { data } = await axios.get(`/trending/${category}/${duration}`, {
+      const { data } = await axios.get(`/person/${category}`, {
         params: { page: pageNum },
       });
       if (pageNum === 1) {
-        setTrending(data.results);
+        setPerson(data.results);
       } else {
-        setTrending((prev) => [...prev, ...data.results]);
+        setPerson((prev) => [...prev, ...data.results]);
       }
       setHasMore(data.page < data.total_pages);
       setError(null);
     } catch (error) {
-      console.error("Error fetching trending data:", error);
-      setError("Unable to load trending content. Please try again later.");
+      console.error("Error fetching person data:", error);
+      setError("Unable to load person content. Please try again later.");
     } finally {
       setLoading(false);
     }
@@ -41,23 +38,19 @@ const Trending = () => {
 
   useEffect(() => {
     setPage(1);
-    setTrending([]);
+    setPerson([]);
     setLoading(true);
-    getTrending(1);
-  }, [category, duration]);
+    getPerson(1);
+  }, [category]);
 
   const handleCategoryChange = (newCategory) => {
     setCategory(newCategory);
   };
 
-  const handleDurationChange = (newDuration) => {
-    setDuration(newDuration);
-  };
-
   const fetchMoreData = () => {
     if (!loading) {
       setPage((prev) => prev + 1);
-      getTrending(page + 1);
+      getPerson(page + 1);
     }
   };
 
@@ -69,25 +62,11 @@ const Trending = () => {
             onClick={() => navigate(-1)}
             className="ri-arrow-left-line hover:text-[#6556CD] cursor-pointer"
           ></i>
-          Trending
+          person
         </h1>
 
         <div className="flex items-center w-[80%]">
           <Topnav />
-          <div className="flex items-center space-x-4">
-            <Filtering
-              title="Category"
-              options={["movie", "tv", "all"]}
-              onCategoryChange={handleCategoryChange}
-              selectedOption={category}
-            />
-            <Filtering
-              title="Duration"
-              options={["week", "day"]}
-              onCategoryChange={handleDurationChange}
-              selectedOption={duration}
-            />
-          </div>
         </div>
       </div>
 
@@ -99,19 +78,19 @@ const Trending = () => {
             message={error}
             onRetry={() => {
               setPage(1);
-              getTrending(1);
+              getPerson(1);
             }}
           />
         ) : (
           <InfiniteScroll
-            dataLength={trending.length}
+            dataLength={person.length}
             next={fetchMoreData}
             hasMore={hasMore}
             loader={<CardsShimmer />}
             scrollableTarget="scrollableDiv"
             style={{ overflow: "visible" }}
           >
-            <Cards data={trending} title={category} type="Trending" />
+            <Cards data={person} title="people" type="person" />
           </InfiniteScroll>
         )}
       </div>
@@ -119,4 +98,4 @@ const Trending = () => {
   );
 };
 
-export default Trending;
+export default People;

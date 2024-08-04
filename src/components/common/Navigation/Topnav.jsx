@@ -1,7 +1,8 @@
-import axios from "../../utils/axios";
+import axios from "../../../utils/axios";
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import noImageAvailable from "../../assets/noImageAvailable.jpg";
+import noImageAvailable from "../../../assets/noImageAvailable.jpg";
+
 const Topnav = () => {
   const [query, setQuery] = useState("");
   const [search, setSearch] = useState([]);
@@ -10,13 +11,12 @@ const Topnav = () => {
     try {
       if (query.trim() !== "") {
         const { data } = await axios.get(`/search/multi?query=${query}`);
-        // console.log("Data", data);
         setSearch(data.results);
       } else {
         setSearch([]);
       }
     } catch (error) {
-      console.log("Error : ", error);
+      console.error("Error : ", error);
       setSearch([]);
     }
   };
@@ -27,8 +27,6 @@ const Topnav = () => {
     }, 500);
     return () => clearTimeout(timeoutId);
   }, [query]);
-
-  // console.log("Query", query);
 
   return (
     <div className="w-full h-[5vh] relative z-50 flex justify-center items-center bg-[#1F1F1F] px-4">

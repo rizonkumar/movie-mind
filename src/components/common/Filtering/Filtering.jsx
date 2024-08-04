@@ -3,8 +3,6 @@ import React, { useState } from "react";
 const Filtering = ({ title, options, onCategoryChange, selectedOption }) => {
   const [isOpen, setIsOpen] = useState(false);
 
-  console.log("Selected option", selectedOption);
-
   const handleOptionClick = (option) => {
     onCategoryChange(option);
     setIsOpen(false);
