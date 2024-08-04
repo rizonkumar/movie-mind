@@ -69,9 +69,9 @@ const Home = () => {
   };
 
   return (
-    <>
+    <div className="flex flex-col md:flex-row bg-[#1F1E24] min-h-screen">
       <Sidenav />
-      <div className="w-[85%] h-screen overflow-auto overflow-x-hidden">
+      <div className="w-full md:w-[85%] h-screen overflow-auto overflow-x-hidden">
         <Topnav />
         {wallpaperLoading ? (
           <HeaderShimmer />
@@ -80,8 +80,10 @@ const Home = () => {
         ) : (
           <Headers data={wallpaper} />
         )}
-        <div className="flex justify-between items-center p-[44px] pb-0 relative z-40">
-          <h1 className="text-3xl text-zinc-400 font-semibold">Trending</h1>
+        <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center p-4 sm:p-[44px] pb-0 relative z-40">
+          <h1 className="text-2xl sm:text-3xl text-zinc-400 font-semibold mb-4 sm:mb-0">
+            Trending
+          </h1>
           <Filtering
             title="Filter"
             options={["tv", "movie", "all"]}
@@ -99,7 +101,7 @@ const Home = () => {
           />
         )}
       </div>
-    </>
+    </div>
   );
 };
 
