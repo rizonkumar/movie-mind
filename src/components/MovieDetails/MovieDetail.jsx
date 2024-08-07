@@ -50,7 +50,7 @@ const Moviedetail = () => {
   const { detail, externalId, videos, watchProviders, translations } = info;
 
   return (
-    <div className="w-full min-h-screen bg-gray-900 text-white relative">
+    <div className="w-full min-h-screen bg-[#1F1F1F] text-white">
       <div
         className="w-full h-[50vh] sm:h-[60vh] lg:h-[70vh] bg-cover bg-center relative"
         style={{
