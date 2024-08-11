@@ -41,7 +41,7 @@ const HorizontalCards = ({ trending, error, onRetry }) => {
                 className="w-full h-[40vh] bg-zinc-800 rounded relative group"
               >
                 <img
-                  src={`https://image.tmdb.org/t/p/w500${item.poster_path}`}
+                  src={`https://image.tmdb.org/t/p/w500${item.poster_path || item.backdrop_path}`}
                   alt={item.title || item.name}
                   className="w-full h-full object-cover"
                 />

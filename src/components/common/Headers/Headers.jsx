@@ -1,5 +1,4 @@
-import React from "react";
-import { Link } from "react-router-dom";
+import {Link} from "react-router-dom";
 
 const Headers = ({ data }) => {
   if (!data) return null;
@@ -54,7 +53,8 @@ const Headers = ({ data }) => {
         </div>
         <div className="mt-8 flex space-x-4">
           <button className="bg-red-600 hover:bg-red-700 text-white font-bold py-3 px-6 rounded-full transition-colors flex items-center">
-            <i className="ri-play-fill mr-2"></i> Watch Trailer Now
+            <i className="ri-play-fill mr-2"></i>
+            <Link to={`/${data?.media_type}/details/${data.id}/trailer`}> Watch Trailer Now</Link>
           </button>
           <button className="bg-gray-800 hover:bg-gray-700 text-white font-bold py-3 px-6 rounded-full transition-colors flex items-center">
             <i className="ri-add-line mr-2"></i> Add to List
