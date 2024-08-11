@@ -14,7 +14,7 @@ import Trailer from "./components/common/Trailer/Trailer";
 
 function App() {
   return (
-    <div className="bg-[#1F1E24] w-screen h-screen flex">
+    <div className="bg-[#1F1E24] w-screen min-h-screen flex">
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/trending" element={<Trending />} />
