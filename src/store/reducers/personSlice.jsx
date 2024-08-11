@@ -31,6 +31,6 @@ export const personSlice = createSlice({
 });
 
 export const { loadperson, removeperson, setLoading, setError } =
-    personSlice.actions;
+  personSlice.actions;
 
 export default personSlice.reducer;

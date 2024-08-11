@@ -30,7 +30,6 @@ export const tvSlice = createSlice({
   },
 });
 
-export const { loadtv, removetv, setLoading, setError } =
-    tvSlice.actions;
+export const { loadtv, removetv, setLoading, setError } = tvSlice.actions;
 
 export default tvSlice.reducer;

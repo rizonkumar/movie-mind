@@ -5,7 +5,7 @@ import { ErrorDisplay } from "../common/ErrorDisplay/ErrorDisplay";
 import CardsShimmer from "../common/Cards/CardsShimmer";
 import Cards from "../common/Cards/Cards";
 import Topnav from "../common/Navigation/Topnav.jsx";
-import axios from "../../utils/axios.jsx"
+import axios from "../../utils/axios.jsx";
 const People = () => {
   document.title = "Move Mind | person";
 
@@ -56,46 +56,46 @@ const People = () => {
   };
 
   return (
-      <div className="w-screen h-screen flex flex-col bg-[#1F1F1F]">
-        <div className="w-full flex items-center justify-between p-4">
-          <h1 className="text-2xl text-zinc-300 font-semibold">
-            <i
-                onClick={() => navigate(-1)}
-                className="ri-arrow-left-line hover:text-[#6556CD] cursor-pointer"
-            ></i>
-            person
-          </h1>
+    <div className="w-screen h-screen flex flex-col bg-[#1F1F1F]">
+      <div className="w-full flex items-center justify-between p-4">
+        <h1 className="text-2xl text-zinc-300 font-semibold">
+          <i
+            onClick={() => navigate(-1)}
+            className="ri-arrow-left-line hover:text-[#6556CD] cursor-pointer"
+          ></i>
+          person
+        </h1>
 
-          <div className="flex items-center w-[80%]">
-            <Topnav />
-          </div>
-        </div>
-
-        <div className="flex-grow overflow-y-auto" id="scrollableDiv">
-          {loading && page === 1 ? (
-              <CardsShimmer />
-          ) : error ? (
-              <ErrorDisplay
-                  message={error}
-                  onRetry={() => {
-                    setPage(1);
-                    getPerson(1);
-                  }}
-              />
-          ) : (
-              <InfiniteScroll
-                  dataLength={person.length}
-                  next={fetchMoreData}
-                  hasMore={hasMore}
-                  loader={<CardsShimmer />}
-                  scrollableTarget="scrollableDiv"
-                  style={{ overflow: "visible" }}
-              >
-                <Cards data={person} title="people" type="person" />
-              </InfiniteScroll>
-          )}
+        <div className="flex items-center w-[80%]">
+          <Topnav />
         </div>
       </div>
+
+      <div className="flex-grow overflow-y-auto" id="scrollableDiv">
+        {loading && page === 1 ? (
+          <CardsShimmer />
+        ) : error ? (
+          <ErrorDisplay
+            message={error}
+            onRetry={() => {
+              setPage(1);
+              getPerson(1);
+            }}
+          />
+        ) : (
+          <InfiniteScroll
+            dataLength={person.length}
+            next={fetchMoreData}
+            hasMore={hasMore}
+            loader={<CardsShimmer />}
+            scrollableTarget="scrollableDiv"
+            style={{ overflow: "visible" }}
+          >
+            <Cards data={person} title="people" type="person" />
+          </InfiniteScroll>
+        )}
+      </div>
+    </div>
   );
 };
 
