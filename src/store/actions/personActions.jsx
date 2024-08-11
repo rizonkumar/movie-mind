@@ -11,6 +11,7 @@ export const asyncloadperson = (id) => async (dispatch) => {
         let theUltimateDetails = {
             detail: detail.data,
             externalId: externalId.data,
+            combinedCredits: combinedCredits.data,
         };
         dispatch(loadperson(theUltimateDetails));
     } catch (error) {
