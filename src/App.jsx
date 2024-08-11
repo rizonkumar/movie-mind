@@ -11,6 +11,7 @@ import Moviedetail from "./components/MovieDetails/MovieDetail";
 import TVDetail from "./components/TVDetail/TVdetail";
 import Peopledetail from "./components/PeopleDetail/Peopledetail";
 import Trailer from "./components/common/Trailer/Trailer";
+import AboutRizon from "./components/AboutMe/AboutRizon";
 
 function App() {
   return (
@@ -27,6 +28,7 @@ function App() {
         </Route>
         <Route path="/tv/details/:id" element={<TVDetail />} />
         <Route path="/people/details/:id" element={<Peopledetail />} />
+        <Route path="/about-rizon" element={<AboutRizon />} />
       </Routes>
     </div>
   );
