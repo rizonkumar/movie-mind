@@ -2,6 +2,8 @@
 
 Movie-Mind is a comprehensive React-based web application for exploring movies, TV shows, and people in the entertainment industry. It leverages the TMDB API to provide up-to-date information on trending and popular content, as well as detailed information on specific titles and individuals.
 
+## Live Demo: https://movie-mind-rizon.netlify.app/
+
 ## Key Features
 
 1. **Dynamic Content Browsing**
