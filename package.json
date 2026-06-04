@@ -34,6 +34,9 @@
   "optionalDependencies": {
     "@tailwindcss/oxide-darwin-arm64": "^4.3.0",
     "@tailwindcss/oxide-darwin-x64": "^4.3.0",
-    "@tailwindcss/oxide-linux-x64-gnu": "^4.3.0"
+    "@tailwindcss/oxide-linux-x64-gnu": "^4.3.0",
+    "@tailwindcss/oxide-linux-x64-musl": "^4.3.0",
+    "@tailwindcss/oxide-linux-arm64-gnu": "^4.3.0",
+    "@tailwindcss/oxide-linux-arm64-musl": "^4.3.0"
   }
 }
