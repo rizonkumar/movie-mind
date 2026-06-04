@@ -1,4 +1,5 @@
 import { Link } from "react-router-dom";
+import { getTMDBImageUrl } from "../../../utils/image";
 
 const Headers = ({ data }) => {
   if (!data) return null;
@@ -7,9 +8,10 @@ const Headers = ({ data }) => {
     <div
       className="w-full h-[65vh] flex flex-col justify-end p-[5%] relative overflow-hidden"
       style={{
-        background: `linear-gradient(rgba(0,0,0,0.2), rgba(0,0,0,0.5), rgba(0,0,0,0.8)), url(https://image.tmdb.org/t/p/original/${
-          data?.backdrop_path || data?.profile_path
-        })`,
+        background: `linear-gradient(rgba(0,0,0,0.2), rgba(0,0,0,0.5), rgba(0,0,0,0.8)), url(${getTMDBImageUrl(
+          data?.backdrop_path || data?.profile_path,
+          "original"
+        )})`,
         backgroundPosition: "center",
         backgroundSize: "cover",
       }}

@@ -26,34 +26,40 @@ const Filtering = ({ title, options, onCategoryChange, selectedOption }) => {
     <div className="relative inline-block text-left" ref={dropdownRef}>
       <button
         type="button"
-        className="inline-flex items-center justify-between w-full px-4 py-2 text-sm font-medium text-white bg-gray-800 rounded-md hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-800 focus:ring-blue-500"
+        className="inline-flex items-center justify-between min-w-[150px] px-5 py-2.5 text-sm font-semibold text-zinc-200 bg-zinc-800/60 hover:bg-zinc-800 hover:text-white border border-white/10 rounded-xl transition-all duration-200 active:scale-[0.98] shadow-md shadow-black/10 focus:outline-none cursor-pointer"
         onClick={() => setIsOpen(!isOpen)}
       >
-        {title}: {selectedOption ? selectedOption.toUpperCase() : "ALL"}
+        <span>
+          {title}: <span className="text-[#6556CD] ml-1 font-bold">{selectedOption ? selectedOption.toUpperCase().replace("_", " ") : "ALL"}</span>
+        </span>
         <i
-          className={`ri-arrow-down-s-line ml-2 transition-transform duration-200 ${
-            isOpen ? "rotate-180" : ""
+          className={`ri-arrow-down-s-line ml-3 text-zinc-400 transition-transform duration-250 ${
+            isOpen ? "rotate-180 text-white" : ""
           }`}
         ></i>
       </button>
 
       {isOpen && (
-        <div className="origin-top-right absolute right-0 mt-2 w-full rounded-md shadow-lg bg-gray-800 ring-1 ring-black ring-opacity-5 z-50">
-          <div className="py-1" role="menu" aria-orientation="vertical">
-            {options.map((option) => (
-              <button
-                key={option}
-                className={`${
-                  selectedOption === option
-                    ? "bg-gray-700 text-white"
-                    : "text-gray-300"
-                } block w-full text-left px-4 py-2 text-sm hover:bg-gray-700 hover:text-white`}
-                role="menuitem"
-                onClick={() => handleOptionClick(option)}
-              >
-                {option.toUpperCase()}
-              </button>
-            ))}
+        <div className="glass-dropdown absolute right-0 mt-2 min-w-[180px] rounded-2xl overflow-hidden z-50 transform origin-top-right transition-all duration-200">
+          <div className="p-1.5 flex flex-col gap-1" role="menu" aria-orientation="vertical">
+            {options.map((option) => {
+              const isSelected = selectedOption === option;
+              return (
+                <button
+                  key={option}
+                  className={`w-full text-left px-4 py-2.5 text-sm font-medium rounded-xl flex items-center justify-between transition-all duration-150 cursor-pointer ${
+                    isSelected
+                      ? "bg-[#6556CD] text-white shadow-md shadow-[#6556CD]/25"
+                      : "text-zinc-300 hover:bg-white/5 hover:text-white"
+                  }`}
+                  role="menuitem"
+                  onClick={() => handleOptionClick(option)}
+                >
+                  <span>{option.toUpperCase().replace("_", " ")}</span>
+                  {isSelected && <i className="ri-checkbox-circle-fill text-white text-base"></i>}
+                </button>
+              );
+            })}
           </div>
         </div>
       )}
@@ -62,3 +68,4 @@ const Filtering = ({ title, options, onCategoryChange, selectedOption }) => {
 };
 
 export default Filtering;
+

@@ -2,18 +2,21 @@ import React from "react";
 
 const CardsShimmer = () => {
   return (
-    <div className="mt-8 h-[calc(100vh-200px)] overflow-y-auto">
-      <div className="text-2xl font-bold text-white mb-4 sticky top-0 py-2 w-48 h-8 animate-pulse bg-gray-700 rounded"></div>
-      <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-4 pb-8">
-        {[...Array(14)].map((_, index) => (
+    <div className="mt-8 px-4 h-[calc(100vh-200px)] overflow-y-auto scrollbar-hide">
+      <div className="w-48 h-8 mb-6 rounded-xl shimmer-pulse"></div>
+      <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-6 pb-8">
+        {[...Array(12)].map((_, index) => (
           <div
             key={index}
-            className="bg-gray-800 rounded-lg overflow-hidden shadow-lg h-full flex flex-col"
+            className="bg-zinc-900/60 rounded-2xl overflow-hidden border border-white/5 shadow-xl h-full flex flex-col relative"
           >
-            <div className="w-full aspect-[2/3] bg-gray-700 animate-pulse"></div>
-            <div className="p-4 flex-grow flex flex-col justify-between">
-              <div className="h-4 bg-gray-700 rounded animate-pulse mb-2"></div>
-              <div className="h-4 bg-gray-700 rounded animate-pulse w-3/4"></div>
+            <div className="w-full aspect-[2/3] shimmer-pulse"></div>
+            <div className="p-4 flex-grow flex flex-col justify-between bg-zinc-950/40">
+              <div className="h-4 shimmer-pulse rounded-lg mb-3 w-5/6"></div>
+              <div className="flex justify-between items-center mt-2">
+                <div className="h-3 shimmer-pulse rounded w-1/3"></div>
+                <div className="h-3 shimmer-pulse rounded w-1/4"></div>
+              </div>
             </div>
           </div>
         ))}
@@ -23,3 +26,4 @@ const CardsShimmer = () => {
 };
 
 export default CardsShimmer;
+

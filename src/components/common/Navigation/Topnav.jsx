@@ -2,6 +2,7 @@ import axios from "../../../utils/axios";
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import noImageAvailable from "../../../assets/noImageAvailable.jpg";
+import { getTMDBImageUrl } from "../../../utils/image";
 
 const Topnav = () => {
   const [query, setQuery] = useState("");
@@ -57,9 +58,10 @@ const Topnav = () => {
                 <img
                   src={
                     item.poster_path || item.profile_path
-                      ? `https://image.tmdb.org/t/p/w92${
-                          item.poster_path || item.profile_path
-                        }`
+                      ? getTMDBImageUrl(
+                          item.poster_path || item.profile_path,
+                          "w92"
+                        )
                       : noImageAvailable
                   }
                   alt={item.name || item.title}

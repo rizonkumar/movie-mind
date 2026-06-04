@@ -1,11 +1,13 @@
+import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { asyncloadtv, removetv } from "../../store/actions/tvShowActions.jsx";
 import { Link, Outlet, useNavigate, useParams } from "react-router-dom";
+import { getTMDBImageUrl } from "../../utils/image";
 import MovieDetailShimmer from "../MovieDetails/MovieDetailShimmer.jsx";
 import MovieDetailError from "../MovieDetails/MovieDetailError.jsx";
 import HorizontalCards from "../common/HorizontalCards/HorizontalCards";
 import HorizontalCardsShimmer from "../common/HorizontalCards/HorizontalCardsShimmer";
-import { useState, useEffect } from "react";
+
 
 const TVDetail = () => {
   const navigate = useNavigate();
@@ -49,202 +51,275 @@ const TVDetail = () => {
 
   const { detail, externalId, videos, watchProviders, translations } = info;
 
-  console.log("Info from tv", info);
   return (
-    <div className="w-full min-h-screen bg-[#1F1F1F] text-white">
+    <div className="w-full min-h-screen bg-[#0e0e11] text-zinc-100 flex flex-col font-sans selection:bg-violet-600/35 overflow-x-hidden">
+      {/* Cinematic Hero Backdrop Header */}
       <div
-        className="w-full h-[50vh] sm:h-[60vh] lg:h-[70vh] bg-cover bg-center relative"
+        className="w-full h-[55vh] md:h-[65vh] bg-cover bg-center relative z-0 flex flex-col justify-between"
         style={{
-          backgroundImage: `url(https://image.tmdb.org/t/p/original/${detail.backdrop_path})`,
+          backgroundImage: `url(${getTMDBImageUrl(detail.backdrop_path, "original")})`,
         }}
       >
-        <div className="absolute inset-0 bg-black bg-opacity-50">
-          <div className="container mx-auto px-4 h-full flex flex-col justify-end pb-8">
-            <nav className="flex items-center gap-4 mb-4">
-              <Link
-                onClick={() => navigate(-1)}
-                className="text-2xl sm:text-3xl hover:text-[#6556CD] transition-colors duration-300"
+        {/* Deep linear gradient mask blending into unified page background */}
+        <div className="absolute inset-0 bg-gradient-to-t from-[#0e0e11] via-[#0e0e11]/50 to-transparent"></div>
+        <div className="absolute inset-0 bg-gradient-to-r from-[#0e0e11]/40 via-transparent to-[#0e0e11]/40"></div>
+        
+        {/* Navigation Action bar */}
+        <div className="relative z-10 w-full p-6 flex justify-between items-center max-w-7xl mx-auto px-6 lg:px-8">
+          <button
+            onClick={() => navigate(-1)}
+            className="w-10 h-10 rounded-full bg-zinc-950/60 hover:bg-[#6556CD] border border-white/10 text-white flex items-center justify-center transition-all duration-200 cursor-pointer shadow-lg active:scale-95"
+            title="Go Back"
+          >
+            <i className="ri-arrow-left-line text-lg"></i>
+          </button>
+          
+          <div className="flex gap-2">
+            {detail.homepage && (
+              <a
+                href={detail.homepage}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="w-10 h-10 rounded-full bg-zinc-950/60 hover:bg-[#6556CD] hover:text-white border border-white/10 text-zinc-300 flex items-center justify-center transition-all duration-200 shadow-lg"
+                title="Official Website"
               >
-                <i className="ri-arrow-left-line"></i>
-              </Link>
-              {detail.homepage && (
-                <a
-                  href={detail.homepage}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="flex items-center gap-1 hover:text-[#6556CD] transition-colors duration-300 text-sm sm:text-base"
-                >
-                  <i className="ri-external-link-line"></i>
-                  <span className="hidden sm:inline">Official Site</span>
-                </a>
-              )}
-              {externalId.wikidata_id && (
-                <a
-                  href={`https://www.wikidata.org/wiki/${externalId.wikidata_id}`}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="flex items-center gap-1 hover:text-[#6556CD] transition-colors duration-300 text-sm sm:text-base"
-                >
-                  <i className="ri-global-line"></i>
-                  <span className="hidden sm:inline">Wikidata</span>
-                </a>
-              )}
-              {externalId.imdb_id && (
-                <a
-                  href={`https://www.imdb.com/title/${externalId.imdb_id}/`}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="flex items-center gap-1 hover:text-[#6556CD] transition-colors duration-300 text-sm sm:text-base"
-                >
-                  <i className="ri-film-line"></i>
-                  <span className="hidden sm:inline">IMDb</span>
-                </a>
-              )}
-            </nav>
-            <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold mb-2">
-              {detail?.name || detail?.title || "No Name"}
-            </h1>
-            <p className="text-base sm:text-lg md:text-xl mb-4">
-              {detail?.tagline || ""}
-            </p>
-            <div className="flex flex-wrap items-center gap-4">
-              {videos && (
-                <Link
-                  to={`/tv/details/${detail.id}/trailer`}
-                  className="bg-[#6556CD] text-white py-2 px-4 rounded-lg hover:bg-[#4c3e9d] transition-colors duration-300 inline-flex items-center gap-2 text-sm sm:text-base"
-                >
-                  <i className="ri-play-circle-line"></i>
-                  Watch Trailer
-                </Link>
-              )}
-              {watchProviders && watchProviders.flatrate && (
-                <div className="flex items-center gap-2">
-                  <span className="text-sm sm:text-base">Watch on:</span>
-                  {watchProviders.flatrate.slice(0, 3).map((provider) => (
-                    <a
-                      key={provider.provider_id}
-                      href={watchProviders.link}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="group relative"
-                    >
-                      <img
-                        src={`https://image.tmdb.org/t/p/original${provider.logo_path}`}
-                        alt={provider.provider_name}
-                        className="w-8 h-8 rounded-full transition-transform group-hover:scale-110"
-                        title={provider.provider_name}
-                      />
-                    </a>
-                  ))}
-                </div>
-              )}
-            </div>
+                <i className="ri-external-link-line"></i>
+              </a>
+            )}
+            {externalId.wikidata_id && (
+              <a
+                href={`https://www.wikidata.org/wiki/${externalId.wikidata_id}`}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="w-10 h-10 rounded-full bg-zinc-950/60 hover:bg-[#6556CD] hover:text-white border border-white/10 text-zinc-300 flex items-center justify-center transition-all duration-200 shadow-lg"
+                title="Wikidata Page"
+              >
+                <i className="ri-global-line"></i>
+              </a>
+            )}
+            {externalId.imdb_id && (
+              <a
+                href={`https://www.imdb.com/title/${externalId.imdb_id}/`}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="w-10 h-10 rounded-full bg-zinc-950/60 hover:bg-[#6556CD] hover:text-white border border-white/10 text-zinc-300 flex items-center justify-center transition-all duration-200 shadow-lg"
+                title="IMDb Page"
+              >
+                <i className="ri-film-line"></i>
+              </a>
+            )}
           </div>
         </div>
       </div>
 
-      <div className="container mx-auto px-4 py-8 bg-gray-900">
-        <div className="flex flex-col md:flex-row gap-8">
-          <div className="w-full md:w-1/3 lg:w-1/4">
+      {/* Layered Detail Layout Grid */}
+      <div className="max-w-7xl mx-auto px-6 lg:px-8 pb-16 relative z-10 -mt-36 md:-mt-48 flex flex-col md:flex-row gap-8 lg:gap-12 w-full">
+        {/* Left Side: Overlapping Poster & Providers */}
+        <div className="w-full md:w-[280px] lg:w-[320px] flex-shrink-0 flex flex-col">
+          <div className="w-full aspect-[2/3] rounded-2xl overflow-hidden shadow-2xl border border-white/10 bg-zinc-900 group shadow-black/90">
             <img
-              src={`https://image.tmdb.org/t/p/w500${detail.poster_path}`}
-              alt={detail.title}
-              className="w-full rounded-lg shadow-lg mb-4"
+              src={getTMDBImageUrl(detail.poster_path, "w500")}
+              alt={detail.name}
+              className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-103"
             />
           </div>
-          <div className="w-full md:w-2/3 lg:w-3/4">
-            <p className="text-base sm:text-lg mb-6">{detail.overview}</p>
-            <div className="grid grid-cols-2 sm:grid-cols-3 gap-4 mb-6">
-              <div>
-                <h3 className="font-semibold">First Air Date</h3>
-                <p>{detail.first_air_date}</p>
-              </div>
-              <div>
-                <h3 className="font-semibold">Number of Seasons</h3>
-                <p>{detail.number_of_seasons}</p>
-              </div>
-              <div>
-                <h3 className="font-semibold">Number of Episodes</h3>
-                <p>{detail.number_of_episodes}</p>
-              </div>
-              <div>
-                <h3 className="font-semibold">Rating</h3>
-                <p>{detail.vote_average.toFixed(1)} / 10</p>
-              </div>
-              <div>
-                <h3 className="font-semibold">Genres</h3>
-                <p>{detail.genres.map((genre) => genre.name).join(", ")}</p>
-              </div>
-              <div>
-                <h3 className="font-semibold">Status</h3>
-                <p>{detail.status}</p>
+
+          {/* Providers */}
+          {watchProviders && watchProviders.flatrate && (
+            <div className="mt-6 p-5 bg-zinc-900/40 border border-white/5 rounded-2xl flex flex-col gap-3 backdrop-blur-md">
+              <span className="text-xs font-bold text-zinc-400 uppercase tracking-wider">Where to Stream</span>
+              <div className="flex flex-wrap gap-2.5">
+                {watchProviders.flatrate.map((provider) => (
+                  <a
+                    key={provider.provider_id}
+                    href={watchProviders.link}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="hover:scale-110 active:scale-95 transition-transform duration-200"
+                    title={provider.provider_name}
+                  >
+                    <img
+                      src={getTMDBImageUrl(provider.logo_path, "original")}
+                      alt={provider.provider_name}
+                      className="w-9 h-9 rounded-xl border border-white/10 shadow"
+                    />
+                  </a>
+                ))}
               </div>
             </div>
-            {detail.created_by && detail.created_by.length > 0 && (
-              <div className="mb-6">
-                <h3 className="text-xl font-semibold mb-2">Created By</h3>
-                <div className="flex flex-wrap gap-2">
-                  {detail.created_by.map((creator) => (
-                    <span
-                      key={creator.id}
-                      className="bg-gray-800 px-2 py-1 rounded text-sm"
-                    >
-                      {creator.name}
-                    </span>
-                  ))}
-                </div>
-              </div>
-            )}
-            {detail.networks && detail.networks.length > 0 && (
-              <div className="mb-6">
-                <h3 className="text-xl font-semibold mb-2">Networks</h3>
-                <div className="flex flex-wrap gap-4">
-                  {detail.networks.map((network) => (
-                    <img
-                      key={network.id}
-                      src={`https://image.tmdb.org/t/p/w92${network.logo_path}`}
-                      alt={network.name}
-                      className="h-8 object-contain"
-                    />
-                  ))}
-                </div>
-              </div>
-            )}
-            {translations && translations.translations && (
-              <div>
-                <h3 className="text-xl font-semibold mb-2">
-                  Available Languages (Top 5)
-                </h3>
-                <div className="flex flex-wrap gap-2">
-                  {translations.translations
-                    .slice(0, 5)
-                    .map((translation, index) => (
-                      <span
-                        key={index}
-                        className="bg-gray-800 px-2 py-1 rounded text-sm"
-                      >
-                        {translation.english_name}
-                      </span>
-                    ))}
-                </div>
-              </div>
+          )}
+        </div>
+
+        {/* Right Side: Primary Info Block */}
+        <div className="flex-grow pt-4 md:pt-16 flex flex-col gap-6 md:gap-8">
+          
+          {/* Header Title section */}
+          <div className="flex flex-col gap-2.5 text-center md:text-left">
+            <h1 className="text-3xl sm:text-4xl md:text-5xl font-extrabold text-white tracking-tight leading-tight">
+              {detail.name || detail.title || "No Name"}
+            </h1>
+            {detail.tagline && (
+              <p className="text-zinc-400 italic text-base md:text-lg font-medium">
+                "{detail.tagline}"
+              </p>
             )}
           </div>
+
+          {/* Metadata Badges line */}
+          <div className="flex flex-wrap gap-3 items-center justify-center md:justify-start">
+            {/* Rating pill */}
+            <div className="flex items-center gap-1.5 bg-amber-500/10 border border-amber-500/20 text-amber-400 px-3.5 py-1.5 rounded-full text-xs font-bold shadow-md shadow-amber-500/5">
+              <i className="ri-star-fill text-sm"></i>
+              <span>{detail.vote_average?.toFixed(1) || "N/A"}</span>
+              <span className="text-amber-400/40 font-normal">({detail.vote_count})</span>
+            </div>
+
+            {/* Year */}
+            <span className="text-zinc-300 bg-white/5 border border-white/5 px-3.5 py-1.5 rounded-full text-xs font-semibold">
+              {detail.first_air_date ? new Date(detail.first_air_date).getFullYear() : "N/A"}
+            </span>
+
+            {/* Maturity level */}
+            <span className="text-zinc-300 bg-white/5 border border-white/5 px-3.5 py-1.5 rounded-full text-xs font-semibold">
+              {detail.adult ? "18+" : "PG-13"}
+            </span>
+          </div>
+
+          {/* Genres row */}
+          <div className="flex flex-wrap gap-2 justify-center md:justify-start">
+            {detail.genres?.map((genre) => (
+              <span
+                key={genre.id}
+                className="text-xs font-bold text-violet-400 bg-violet-500/5 border border-violet-500/10 px-3.5 py-1.5 rounded-full shadow-sm"
+              >
+                {genre.name}
+              </span>
+            ))}
+          </div>
+
+          {/* CTA Play trailer */}
+          {videos && (
+            <div className="flex justify-center md:justify-start">
+              <Link
+                to={`/tv/details/${detail.id}/trailer`}
+                className="bg-gradient-to-r from-violet-600 to-indigo-600 hover:from-violet-500 hover:to-indigo-500 text-white py-3.5 px-6 rounded-2xl shadow-lg shadow-violet-600/25 active:scale-[0.98] transition-all duration-200 inline-flex items-center gap-2 text-sm sm:text-base font-bold cursor-pointer"
+              >
+                <i className="ri-play-circle-line text-lg"></i>
+                Watch Trailer
+              </Link>
+            </div>
+          )}
+
+          {/* Synopsis */}
+          <div className="flex flex-col gap-3">
+            <h2 className="text-lg font-bold text-zinc-200 border-b border-white/5 pb-2 uppercase tracking-wider">Overview</h2>
+            <p className="text-zinc-300 text-base md:text-lg leading-relaxed font-normal">
+              {detail.overview || "No overview available for this show."}
+            </p>
+          </div>
+
+          {/* Stats Technical Grid */}
+          <div className="grid grid-cols-2 lg:grid-cols-3 gap-6 p-6 bg-zinc-900/40 border border-white/5 rounded-2xl w-full">
+            <div>
+              <span className="text-xs font-bold text-zinc-500 uppercase tracking-wider block mb-1">Status</span>
+              <span className="text-sm font-semibold text-zinc-200">{detail.status || "N/A"}</span>
+            </div>
+            <div>
+              <span className="text-xs font-bold text-zinc-500 uppercase tracking-wider block mb-1">Seasons</span>
+              <span className="text-sm font-semibold text-zinc-200">{detail.number_of_seasons || 0}</span>
+            </div>
+            <div>
+              <span className="text-xs font-bold text-zinc-500 uppercase tracking-wider block mb-1">Episodes</span>
+              <span className="text-sm font-semibold text-zinc-200">{detail.number_of_episodes || 0}</span>
+            </div>
+          </div>
+
+          {/* Created By block */}
+          {detail.created_by && detail.created_by.length > 0 && (
+            <div className="flex flex-col gap-3">
+              <h3 className="text-xs font-bold text-zinc-400 uppercase tracking-wider">
+                Created By
+              </h3>
+              <div className="flex flex-wrap gap-2.5">
+                {detail.created_by.map((creator) => (
+                  <span
+                    key={creator.id}
+                    className="bg-white/5 border border-white/5 text-zinc-200 text-xs px-3.5 py-1.5 rounded-xl font-semibold shadow-sm"
+                  >
+                    {creator.name}
+                  </span>
+                ))}
+              </div>
+            </div>
+          )}
+
+          {/* Networks list */}
+          {detail.networks && detail.networks.length > 0 && (
+            <div className="flex flex-col gap-3.5">
+              <h3 className="text-xs font-bold text-zinc-400 uppercase tracking-wider">
+                Available on Networks
+              </h3>
+              <div className="flex flex-wrap gap-4 items-center">
+                {detail.networks.map((network) => (
+                  <div
+                    key={network.id}
+                    className="flex items-center gap-2.5 bg-white/5 border border-white/5 rounded-xl py-2 px-3.5 shadow-sm"
+                    title={network.name}
+                  >
+                    {network.logo_path ? (
+                      <img
+                        src={getTMDBImageUrl(network.logo_path, "w92")}
+                        alt={network.name}
+                        className="h-5 object-contain filter invert brightness-200 opacity-85"
+                      />
+                    ) : (
+                      <span className="text-xs font-semibold text-zinc-300">{network.name}</span>
+                    )}
+                  </div>
+                ))}
+              </div>
+            </div>
+          )}
+
+          {/* Languages block */}
+          {translations && translations.translations && (
+            <div className="flex flex-col gap-3">
+              <h3 className="text-xs font-bold text-zinc-400 uppercase tracking-wider">
+                Available Languages (Top 5)
+              </h3>
+              <div className="flex flex-wrap gap-2">
+                {translations.translations
+                  .slice(0, 5)
+                  .map((translation, index) => (
+                    <span
+                      key={index}
+                      className="bg-white/5 border border-white/5 text-zinc-300 text-xs px-3 py-1.5 rounded-full font-medium"
+                    >
+                      {translation.english_name}
+                    </span>
+                  ))}
+              </div>
+            </div>
+          )}
+
         </div>
       </div>
 
-      <div className="container mx-auto px-4 py-8 bg-gray-900">
-        <h2 className="text-2xl font-bold mb-4">Recommendations</h2>
+      {/* Recommendations Slider Section */}
+      <div className="max-w-7xl mx-auto px-6 lg:px-8 pb-16 bg-transparent w-full">
+        <h2 className="text-lg font-bold text-zinc-200 border-b border-white/5 pb-3.5 uppercase tracking-wider">Recommendations</h2>
         {recommendationsLoading ? (
           <HorizontalCardsShimmer />
         ) : recommendations && recommendations.length > 0 ? (
-          <HorizontalCards
-            trending={recommendations}
-            error={recommendationsError}
-            onRetry={() => dispatch(asyncloadtv(id))}
-          />
+          <div className="-mx-4 sm:-mx-[44px]">
+            <HorizontalCards
+              trending={recommendations}
+              error={recommendationsError}
+              onRetry={() => dispatch(asyncloadtv(id))}
+            />
+          </div>
         ) : (
-          <p>No recommendations available for this TV Show.</p>
+          <p className="text-zinc-500 font-medium py-4">No recommendations available for this TV Show.</p>
         )}
       </div>
 
@@ -254,3 +329,4 @@ const TVDetail = () => {
 };
 
 export default TVDetail;
+

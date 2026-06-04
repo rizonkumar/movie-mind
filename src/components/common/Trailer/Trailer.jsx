@@ -23,7 +23,7 @@ const Trailer = () => {
         >
           <i className="ri-close-line"></i>
         </button>
-        <div className="aspect-w-16 aspect-h-9">
+        <div className="aspect-video relative w-full">
           {ytVideo && ytVideo.key ? (
             <ReactPlayer
               url={`https://www.youtube.com/watch?v=${ytVideo.key}`}

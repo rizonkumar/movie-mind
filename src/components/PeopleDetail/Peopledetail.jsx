@@ -5,6 +5,7 @@ import {
   asyncloadperson,
   removeperson,
 } from "../../store/actions/personActions";
+import { getTMDBImageUrl } from "../../utils/image";
 import MovieDetailShimmer from "../MovieDetails/MovieDetailShimmer";
 import MovieDetailError from "../MovieDetails/MovieDetailError";
 
@@ -41,140 +42,215 @@ const Peopledetail = () => {
   const { detail, externalId, combinedCredits } = info;
 
   return (
-    <div className="w-full min-h-screen bg-[#1F1F1F] text-white">
-      <div className="container mx-auto px-4 py-8">
-        <nav className="mb-8">
-          <Link
-            to="#"
-            onClick={() => navigate(-1)}
-            className="text-2xl sm:text-3xl hover:text-[#6556CD] transition-colors duration-300"
-          >
-            <i className="ri-arrow-left-line"></i>
-          </Link>
-        </nav>
+    <div className="w-full min-h-screen bg-[#0e0e11] text-zinc-100 flex flex-col font-sans selection:bg-violet-600/35 pb-16">
+      {/* Top Navbar */}
+      <div className="w-full max-w-7xl mx-auto px-6 lg:px-8 pt-8 pb-4 flex justify-between items-center z-20">
+        <button
+          onClick={() => navigate(-1)}
+          className="w-10 h-10 rounded-full bg-zinc-900/60 hover:bg-[#6556CD] border border-white/10 text-white flex items-center justify-center transition-all duration-200 cursor-pointer shadow-lg active:scale-95"
+          title="Go Back"
+        >
+          <i className="ri-arrow-left-line text-lg"></i>
+        </button>
+      </div>
 
-        <div className="flex flex-col md:flex-row gap-8">
-          <div className="w-full md:w-1/3 lg:w-1/4">
+      <div className="max-w-7xl mx-auto px-6 lg:px-8 flex flex-col md:flex-row gap-8 lg:gap-12 w-full mt-4">
+        {/* Left Profile Sidebar */}
+        <div className="w-full md:w-[280px] lg:w-[320px] flex-shrink-0 flex flex-col">
+          <div className="w-full aspect-[2/3] rounded-2xl overflow-hidden shadow-2xl border border-white/10 bg-zinc-900 group shadow-black/90 mb-6">
             <img
-              src={`https://image.tmdb.org/t/p/w500${detail.profile_path}`}
+              src={getTMDBImageUrl(detail.profile_path, "w500")}
               alt={detail.name}
-              className="w-full rounded-lg shadow-lg mb-4"
+              className="w-full h-full object-cover transition-transform duration-750 group-hover:scale-103"
             />
-            <h2 className="text-2xl font-bold mb-2">{detail.name}</h2>
-            {detail.birthday && (
-              <p className="mb-2">
-                <i className="ri-cake-2-line mr-2"></i>
-                <span className="font-semibold">Born:</span> {detail.birthday}
-              </p>
-            )}
-            {detail.deathday && (
-              <p className="mb-2">
-                <i className="ri-skull-2-line mr-2"></i>
-                <span className="font-semibold">Died:</span> {detail.deathday}
-              </p>
-            )}
-            {detail.place_of_birth && (
-              <p className="mb-2">
-                <i className="ri-map-pin-line mr-2"></i>
-                <span className="font-semibold">Place of Birth:</span>{" "}
-                {detail.place_of_birth}
-              </p>
-            )}
-            <div className="flex flex-wrap gap-2 mt-4">
-              {externalId.imdb_id && (
-                <a
-                  href={`https://www.imdb.com/name/${externalId.imdb_id}/`}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="bg-yellow-500 text-black px-2 py-1 rounded flex items-center"
-                >
-                  <i className="ri-movie-line mr-1"></i> IMDb
-                </a>
-              )}
-              {externalId.facebook_id && (
-                <a
-                  href={`https://www.facebook.com/${externalId.facebook_id}`}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="bg-blue-600 px-2 py-1 rounded flex items-center"
-                >
-                  <i className="ri-facebook-fill mr-1"></i> Facebook
-                </a>
-              )}
-              {externalId.instagram_id && (
-                <a
-                  href={`https://www.instagram.com/${externalId.instagram_id}`}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="bg-pink-600 px-2 py-1 rounded flex items-center"
-                >
-                  <i className="ri-instagram-line mr-1"></i> Instagram
-                </a>
-              )}
-              {externalId.twitter_id && (
-                <a
-                  href={`https://twitter.com/${externalId.twitter_id}`}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="bg-blue-400 px-2 py-1 rounded flex items-center"
-                >
-                  <i className="ri-twitter-fill mr-1"></i> Twitter
-                </a>
-              )}
-            </div>
           </div>
 
-          <div className="w-full md:w-2/3 lg:w-3/4">
-            <h3 className="text-xl font-semibold mb-4">Biography</h3>
-            <p className="text-base sm:text-lg mb-6">
+          <h2 className="text-2xl font-extrabold text-white mb-4 text-center md:text-left">
+            {detail.name}
+          </h2>
+
+          {/* Bio Facts */}
+          <div className="p-5 bg-zinc-900/40 border border-white/5 rounded-2xl flex flex-col gap-3.5 backdrop-blur-md text-sm text-zinc-300">
+            <span className="text-xs font-bold text-zinc-400 uppercase tracking-wider">Personal Info</span>
+            
+            {detail.birthday && (
+              <div className="flex flex-col gap-0.5">
+                <span className="text-[10px] text-zinc-500 font-semibold uppercase tracking-wider">Born</span>
+                <span className="font-semibold text-zinc-200">
+                  <i className="ri-cake-2-line mr-1.5 text-violet-400"></i>
+                  {detail.birthday}
+                </span>
+              </div>
+            )}
+            
+            {detail.deathday && (
+              <div className="flex flex-col gap-0.5">
+                <span className="text-[10px] text-zinc-500 font-semibold uppercase tracking-wider">Died</span>
+                <span className="font-semibold text-zinc-200">
+                  <i className="ri-skull-2-line mr-1.5 text-red-400"></i>
+                  {detail.deathday}
+                </span>
+              </div>
+            )}
+
+            {detail.place_of_birth && (
+              <div className="flex flex-col gap-0.5">
+                <span className="text-[10px] text-zinc-500 font-semibold uppercase tracking-wider">Place of Birth</span>
+                <span className="font-semibold text-zinc-200 leading-snug">
+                  <i className="ri-map-pin-line mr-1.5 text-violet-400"></i>
+                  {detail.place_of_birth}
+                </span>
+              </div>
+            )}
+
+            {detail.known_for_department && (
+              <div className="flex flex-col gap-0.5">
+                <span className="text-[10px] text-zinc-500 font-semibold uppercase tracking-wider">Known For</span>
+                <span className="font-semibold text-zinc-200">
+                  <i className="ri-user-star-line mr-1.5 text-violet-400"></i>
+                  {detail.known_for_department}
+                </span>
+              </div>
+            )}
+          </div>
+
+          {/* Social Links Row */}
+          <div className="flex flex-wrap gap-2.5 mt-5 justify-center md:justify-start">
+            {externalId.imdb_id && (
+              <a
+                href={`https://www.imdb.com/name/${externalId.imdb_id}/`}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="w-10 h-10 rounded-xl bg-amber-500/10 border border-amber-500/25 hover:bg-amber-500 hover:text-black text-amber-400 flex items-center justify-center transition-all duration-200 shadow"
+                title="IMDb Profile"
+              >
+                <i className="ri-film-line text-lg"></i>
+              </a>
+            )}
+            {externalId.facebook_id && (
+              <a
+                href={`https://www.facebook.com/${externalId.facebook_id}`}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="w-10 h-10 rounded-xl bg-blue-600/10 border border-blue-600/25 hover:bg-blue-600 hover:text-white text-blue-400 flex items-center justify-center transition-all duration-200 shadow"
+                title="Facebook"
+              >
+                <i className="ri-facebook-fill text-lg"></i>
+              </a>
+            )}
+            {externalId.instagram_id && (
+              <a
+                href={`https://www.instagram.com/${externalId.instagram_id}`}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="w-10 h-10 rounded-xl bg-pink-600/10 border border-pink-600/25 hover:bg-pink-600 hover:text-white text-pink-400 flex items-center justify-center transition-all duration-200 shadow"
+                title="Instagram"
+              >
+                <i className="ri-instagram-line text-lg"></i>
+              </a>
+            )}
+            {externalId.twitter_id && (
+              <a
+                href={`https://twitter.com/${externalId.twitter_id}`}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="w-10 h-10 rounded-xl bg-sky-500/10 border border-sky-500/25 hover:bg-sky-500 hover:text-white text-sky-400 flex items-center justify-center transition-all duration-200 shadow"
+                title="Twitter / X"
+              >
+                <i className="ri-twitter-x-fill text-lg"></i>
+              </a>
+            )}
+          </div>
+        </div>
+
+        {/* Right Biography & Credits Block */}
+        <div className="flex-grow pt-4 flex flex-col gap-8 md:gap-10">
+          {/* Biography */}
+          <div className="flex flex-col gap-3">
+            <h3 className="text-lg font-bold text-zinc-200 border-b border-white/5 pb-2 uppercase tracking-wider">Biography</h3>
+            <p className="text-zinc-300 text-base md:text-lg leading-relaxed font-normal whitespace-pre-line">
               {detail.biography || "No biography available."}
             </p>
-
-            <h3 className="text-xl font-semibold mb-4">Known For</h3>
-            <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4 mb-6">
-              {combinedCredits.cast.slice(0, 10).map((credit) => (
-                <div
-                  key={credit.id}
-                  className="bg-gray-800 p-2 rounded text-center"
-                >
-                  <img
-                    src={`https://image.tmdb.org/t/p/w200${credit.poster_path}`}
-                    alt={credit.title || credit.name}
-                    className="w-full h-auto mb-2 rounded"
-                  />
-                  <p className="font-semibold text-sm">
-                    {credit.title || credit.name}
-                  </p>
-                </div>
-              ))}
-            </div>
-
-            <h3 className="text-xl font-semibold mb-4">Filmography</h3>
-            <div className="overflow-x-auto">
-              <table className="w-full text-sm">
-                <thead>
-                  <tr className="bg-gray-800">
-                    <th className="p-2 text-left">Year</th>
-                    <th className="p-2 text-left">Title</th>
-                    <th className="p-2 text-left">Role</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {combinedCredits.cast.slice(0, 20).map((credit) => (
-                    <tr key={credit.id} className="border-b border-gray-700">
-                      <td className="p-2">
-                        {new Date(
-                          credit.release_date || credit.first_air_date
-                        ).getFullYear()}
-                      </td>
-                      <td className="p-2">{credit.title || credit.name}</td>
-                      <td className="p-2">{credit.character}</td>
-                    </tr>
-                  ))}
-                </tbody>
-              </table>
-            </div>
           </div>
+
+          {/* Known For horizontal list */}
+          {combinedCredits?.cast && combinedCredits.cast.length > 0 && (
+            <div className="flex flex-col gap-4">
+              <h3 className="text-lg font-bold text-zinc-200 border-b border-white/5 pb-2 uppercase tracking-wider">Known For</h3>
+              <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-4">
+                {combinedCredits.cast.slice(0, 5).map((credit) => (
+                  <Link
+                    key={credit.id}
+                    to={`/${credit.media_type}/details/${credit.id}`}
+                    className="group"
+                  >
+                    <div className="bg-zinc-900/60 border border-white/5 rounded-xl overflow-hidden hover:scale-103 hover:border-white/15 transition-all duration-300 flex flex-col h-full shadow-lg shadow-black/40">
+                      <div className="w-full aspect-[2/3] bg-zinc-950 overflow-hidden relative">
+                        <img
+                          src={getTMDBImageUrl(credit.poster_path, "w300")}
+                          alt={credit.title || credit.name}
+                          className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+                        />
+                      </div>
+                      <div className="p-3 bg-zinc-950/40 flex-grow flex items-center justify-center">
+                        <p className="font-semibold text-xs text-zinc-200 group-hover:text-[#6556CD] text-center line-clamp-2 transition-colors duration-200 leading-snug">
+                          {credit.title || credit.name}
+                        </p>
+                      </div>
+                    </div>
+                  </Link>
+                ))}
+              </div>
+            </div>
+          )}
+
+          {/* Filmography table */}
+          {combinedCredits?.cast && combinedCredits.cast.length > 0 && (
+            <div className="flex flex-col gap-4">
+              <h3 className="text-lg font-bold text-zinc-200 border-b border-white/5 pb-2 uppercase tracking-wider">Filmography</h3>
+              <div className="border border-white/5 rounded-2xl overflow-hidden bg-zinc-900/20 backdrop-blur shadow-xl">
+                <table className="w-full text-sm">
+                  <thead>
+                    <tr className="bg-zinc-900/80 border-b border-white/5 text-zinc-400 font-bold uppercase tracking-wider text-xs">
+                      <th className="p-4 text-left w-20">Year</th>
+                      <th className="p-4 text-left">Title</th>
+                      <th className="p-4 text-left">Role</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {combinedCredits.cast
+                      .filter((c) => c.release_date || c.first_air_date)
+                      .sort(
+                        (a, b) =>
+                          new Date(b.release_date || b.first_air_date) -
+                          new Date(a.release_date || a.first_air_date)
+                      )
+                      .slice(0, 15)
+                      .map((credit, idx) => (
+                        <tr
+                          key={idx}
+                          className="border-b border-white/5 hover:bg-white/[0.02] transition-colors text-zinc-300"
+                        >
+                          <td className="p-4 font-semibold text-zinc-400">
+                            {new Date(
+                              credit.release_date || credit.first_air_date
+                            ).getFullYear()}
+                          </td>
+                          <td className="p-4 font-bold text-white hover:text-[#8B5CF6] transition-colors">
+                            <Link to={`/${credit.media_type}/details/${credit.id}`}>
+                              {credit.title || credit.name}
+                            </Link>
+                          </td>
+                          <td className="p-4 text-zinc-400 italic">
+                            {credit.character || "N/A"}
+                          </td>
+                        </tr>
+                      ))}
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          )}
         </div>
       </div>
     </div>
@@ -182,3 +258,4 @@ const Peopledetail = () => {
 };
 
 export default Peopledetail;
+
