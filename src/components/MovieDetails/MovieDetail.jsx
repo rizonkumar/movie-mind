@@ -64,9 +64,18 @@ const Moviedetail = () => {
       {/* Cinematic Hero Backdrop Header */}
       <div
         className="w-full h-[55vh] md:h-[65vh] bg-cover bg-center relative z-0 flex flex-col justify-between"
-        style={{
-          backgroundImage: `url(${getTMDBImageUrl(detail.backdrop_path, "original")})`,
-        }}
+        style={
+          detail.backdrop_path
+            ? {
+                backgroundImage: `url(${getTMDBImageUrl(
+                  detail.backdrop_path,
+                  "original"
+                )})`,
+              }
+            : {
+                background: "linear-gradient(to bottom right, #1f1f23, #0e0e11)",
+              }
+        }
       >
         {/* Deep linear gradient mask blending into unified page background */}
         <div className="absolute inset-0 bg-gradient-to-t from-[#0e0e11] via-[#0e0e11]/50 to-transparent"></div>

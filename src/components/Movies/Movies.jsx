@@ -83,7 +83,7 @@ const Movies = () => {
               ></i>
               Movie
             </h1>
-            <div className="flex flex-wrap gap-3 items-center w-full sm:w-auto mt-4 sm:mt-0">
+            <div className="flex gap-3 items-center w-full sm:w-auto mt-2 sm:mt-0">
               <Filtering
                 title="Category"
                 options={["popular", "top_rated", "upcoming", "now_playing"]}

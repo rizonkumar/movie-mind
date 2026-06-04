@@ -56,14 +56,23 @@ const TVDetail = () => {
       {/* Cinematic Hero Backdrop Header */}
       <div
         className="w-full h-[55vh] md:h-[65vh] bg-cover bg-center relative z-0 flex flex-col justify-between"
-        style={{
-          backgroundImage: `url(${getTMDBImageUrl(detail.backdrop_path, "original")})`,
-        }}
+        style={
+          detail.backdrop_path
+            ? {
+                backgroundImage: `url(${getTMDBImageUrl(
+                  detail.backdrop_path,
+                  "original"
+                )})`,
+              }
+            : {
+                background: "linear-gradient(to bottom right, #1f1f23, #0e0e11)",
+              }
+        }
       >
         {/* Deep linear gradient mask blending into unified page background */}
         <div className="absolute inset-0 bg-gradient-to-t from-[#0e0e11] via-[#0e0e11]/50 to-transparent"></div>
         <div className="absolute inset-0 bg-gradient-to-r from-[#0e0e11]/40 via-transparent to-[#0e0e11]/40"></div>
-        
+
         {/* Navigation Action bar */}
         <div className="relative z-10 w-full p-6 flex justify-between items-center max-w-7xl mx-auto px-6 lg:px-8">
           <button
@@ -73,7 +82,7 @@ const TVDetail = () => {
           >
             <i className="ri-arrow-left-line text-lg"></i>
           </button>
-          
+
           <div className="flex gap-2">
             {detail.homepage && (
               <a
@@ -152,7 +161,7 @@ const TVDetail = () => {
 
         {/* Right Side: Primary Info Block */}
         <div className="flex-grow pt-4 md:pt-16 flex flex-col gap-6 md:gap-8">
-          
+
           {/* Header Title section */}
           <div className="flex flex-col gap-2.5 text-center md:text-left">
             <h1 className="text-3xl sm:text-4xl md:text-5xl font-extrabold text-white tracking-tight leading-tight">
@@ -329,4 +338,3 @@ const TVDetail = () => {
 };
 
 export default TVDetail;
-

@@ -16,7 +16,10 @@ function App() {
   return (
     <div className="bg-[#0e0e11] w-screen min-h-screen flex text-zinc-100 font-sans">
       <Routes>
-        <Route path="/" element={<Home />} />
+        <Route path="/" element={<Home />}>
+          <Route path="/movie/details/:id/trailer" element={<Trailer />} />
+          <Route path="/tv/details/:id/trailer" element={<Trailer />} />
+        </Route>
         <Route path="/trending" element={<Trending />} />
         <Route path="/popular" element={<Popular />} />
         <Route path="/movies" element={<Movies />} />
@@ -25,7 +28,9 @@ function App() {
         <Route path="/movie/details/:id" element={<Moviedetail />}>
           <Route path="/movie/details/:id/trailer" element={<Trailer />} />
         </Route>
-        <Route path="/tv/details/:id" element={<TVDetail />} />
+        <Route path="/tv/details/:id" element={<TVDetail />}>
+          <Route path="/tv/details/:id/trailer" element={<Trailer />} />
+        </Route>
         <Route path="/people/details/:id" element={<Peopledetail />} />
       </Routes>
     </div>
