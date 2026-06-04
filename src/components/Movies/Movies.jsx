@@ -65,10 +65,10 @@ const Movies = () => {
   };
 
   return (
-    <div className="flex flex-col md:flex-row bg-[#0e0e11] min-h-screen w-screen">
+    <div className="flex flex-col xl:flex-row bg-[#0e0e11] min-h-screen w-screen">
       <Sidenav onToggle={handleSidenavToggle} />
       <div
-        className={`flex-grow w-full md:w-[85%] h-screen overflow-y-auto overflow-x-hidden flex flex-col ${
+        className={`flex-grow w-full xl:w-auto h-screen overflow-y-auto overflow-x-hidden flex flex-col ${
           isSidenavOpen ? "fixed inset-0 z-30" : ""
         }`}
         id="scrollableDiv"
