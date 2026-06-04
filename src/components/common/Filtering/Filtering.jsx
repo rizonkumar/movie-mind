@@ -23,10 +23,10 @@ const Filtering = ({ title, options, onCategoryChange, selectedOption }) => {
   }, []);
 
   return (
-    <div className="relative inline-block text-left" ref={dropdownRef}>
+    <div className="relative flex-grow sm:flex-grow-0 text-left w-full sm:w-auto" ref={dropdownRef}>
       <button
         type="button"
-        className="inline-flex items-center justify-between min-w-[150px] px-4 py-2 text-sm font-semibold text-zinc-200 bg-zinc-900 hover:bg-zinc-950 border border-zinc-800 hover:border-zinc-700/80 rounded-xl transition-all duration-200 active:scale-[0.98] shadow-md focus:outline-none cursor-pointer"
+        className="inline-flex items-center justify-between w-full sm:min-w-[150px] px-4 py-2.5 text-sm font-semibold text-zinc-200 bg-zinc-900 hover:bg-zinc-950 border border-zinc-800 hover:border-zinc-700/80 rounded-xl transition-all duration-200 active:scale-[0.98] shadow-md focus:outline-none cursor-pointer"
         onClick={() => setIsOpen(!isOpen)}
       >
         <span className="text-zinc-400 text-xs sm:text-sm">
@@ -40,7 +40,7 @@ const Filtering = ({ title, options, onCategoryChange, selectedOption }) => {
       </button>
 
       {isOpen && (
-        <div className="glass-dropdown absolute right-0 mt-2 min-w-[180px] rounded-xl overflow-hidden z-50 transform origin-top-right transition-all duration-200">
+        <div className="glass-dropdown absolute left-0 right-0 sm:left-auto sm:right-0 mt-2 sm:min-w-[180px] rounded-xl overflow-hidden z-50 transform origin-top transition-all duration-200">
           <div className="p-1 flex flex-col gap-0.5" role="menu" aria-orientation="vertical">
             {options.map((option) => {
               const isSelected = selectedOption === option;

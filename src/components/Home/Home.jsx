@@ -1,4 +1,5 @@
 import  {useEffect, useState} from "react";
+import { Outlet } from "react-router-dom";
 import axios from "../../utils/axios";
 import Sidenav from "../common/Navigation/Sidenav";
 import Topnav from "../common/Navigation/Topnav";
@@ -96,7 +97,7 @@ const Home = () => {
                             <h1 className="text-2xl sm:text-3xl text-zinc-400 font-semibold mb-4 sm:mb-0">
                                 Trending
                             </h1>
-                            <div className="w-full sm:w-auto">
+                            <div className="flex gap-3 items-center w-full sm:w-auto mt-2 sm:mt-0">
                                 <Filtering
                                     title="Filter"
                                     options={["tv", "movie", "all"]}
@@ -117,6 +118,7 @@ const Home = () => {
                     </div>
                 </div>
             </div>
+            <Outlet />
         </div>
     );
 };

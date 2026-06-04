@@ -4,8 +4,10 @@ import { Link } from "react-router-dom";
 const HorizontalCardItem = ({ item }) => {
   const [imageError, setImageError] = useState(false);
 
-  const hasPoster = item.poster_path || item.backdrop_path;
-  const imageUrl = `https://image.tmdb.org/t/p/w500${item.poster_path || item.backdrop_path}`;
+  const hasPoster = item.poster_path || item.backdrop_path || item.profile_path;
+  const imageUrl = `https://image.tmdb.org/t/p/w500${
+    item.poster_path || item.backdrop_path || item.profile_path
+  }`;
 
   return (
     <div className="w-full h-full bg-zinc-900 rounded-2xl overflow-hidden border border-white/5 relative group cursor-pointer shadow-lg transition-all duration-300 hover:scale-[1.02] hover:border-white/15">
@@ -141,16 +143,19 @@ const HorizontalCards = ({ trending, error, onRetry }) => {
                     </p>
                   </div>
                 ))
-            : trending?.map((item) => (
+            : trending?.map((item) => {
+              const mediaType = item.media_type || (item.title ? "movie" : "tv");
+              return (
                 <Link
-                  to={`/${item.media_type}/details/${item.id}`}
+                  to={`/${mediaType}/details/${item.id}`}
                   key={item.id}
                   className="w-[250px] h-[40vh] flex-shrink-0"
                   style={{ scrollSnapAlign: "start" }}
                 >
                   <HorizontalCardItem item={item} />
                 </Link>
-              ))}
+              );
+            })}
         </div>
 
         {/* Right Arrow Button */}

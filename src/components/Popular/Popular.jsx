@@ -83,7 +83,7 @@ const Popular = () => {
               ></i>
               Popular
             </h1>
-            <div className="flex flex-wrap gap-3 items-center w-full sm:w-auto mt-4 sm:mt-0">
+            <div className="flex gap-3 items-center w-full sm:w-auto mt-2 sm:mt-0">
               <Filtering
                 title="Category"
                 options={["movie", "tv"]}
