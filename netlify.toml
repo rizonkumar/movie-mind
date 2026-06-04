@@ -1,3 +1,3 @@
 [build]
-  command = "node -e \"console.log('Platform:', process.platform, 'Arch:', process.arch)\" && npm install --no-save @tailwindcss/oxide-linux-x64-gnu @tailwindcss/oxide-linux-x64-musl @tailwindcss/oxide-linux-arm64-gnu @tailwindcss/oxide-linux-arm64-musl && npm run build"
+  command = "npm run build"
   publish = "dist"
