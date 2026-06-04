@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import InfiniteScroll from "react-infinite-scroll-component";
 import axios from "../../utils/axios";
+import Sidenav from "../common/Navigation/Sidenav";
 import Topnav from "../common/Navigation/Topnav";
 import Filtering from "../common/Filtering/Filtering";
 import CardsShimmer from "../common/Cards/CardsShimmer";
@@ -11,6 +12,12 @@ import Cards from "../common/Cards/Cards";
 const Trending = () => {
   document.title = "Move Mind | Trending";
   const navigate = useNavigate();
+  const [isSidenavOpen, setIsSidenavOpen] = useState(false);
+
+  const handleSidenavToggle = (isOpen) => {
+    setIsSidenavOpen(isOpen);
+    document.body.style.overflow = isOpen ? 'hidden' : 'auto';
+  };
   const [category, setCategory] = useState("all");
   const [duration, setDuration] = useState("day");
   const [trending, setTrending] = useState([]);
@@ -62,58 +69,63 @@ const Trending = () => {
   };
 
   return (
-    <div className="w-screen h-screen flex flex-col bg-[#1F1F1F]">
-      <div className="w-full flex items-center justify-between p-4">
-        <h1 className="text-2xl text-zinc-300 font-semibold">
-          <i
-            onClick={() => navigate(-1)}
-            className="ri-arrow-left-line hover:text-[#6556CD] cursor-pointer"
-          ></i>
-          Trending
-        </h1>
-
-        <div className="flex items-center w-[80%]">
-          <Topnav />
-          <div className="flex items-center space-x-4">
-            <Filtering
-              title="Category"
-              options={["movie", "tv", "all"]}
-              onCategoryChange={handleCategoryChange}
-              selectedOption={category}
-            />
-            <Filtering
-              title="Duration"
-              options={["week", "day"]}
-              onCategoryChange={handleDurationChange}
-              selectedOption={duration}
-            />
+    <div className="flex flex-col xl:flex-row bg-[#0e0e11] min-h-screen w-screen">
+      <Sidenav onToggle={handleSidenavToggle} />
+      <div
+        className={`flex-grow w-full xl:w-auto h-screen overflow-y-auto overflow-x-hidden flex flex-col ${
+          isSidenavOpen ? "fixed inset-0 z-30" : ""
+        }`}
+        id="scrollableDiv"
+      >
+        <Topnav />
+        <div className="w-full px-4 md:px-[5%] flex-grow bg-[#0e0e11]">
+          <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center py-4 relative z-40">
+            <h1 className="text-2xl sm:text-3xl text-zinc-300 font-semibold mb-4 sm:mb-0 flex items-center gap-3">
+              <i
+                onClick={() => navigate(-1)}
+                className="ri-arrow-left-line hover:text-[#6556CD] cursor-pointer mr-1"
+              ></i>
+              Trending
+            </h1>
+            <div className="flex flex-wrap gap-3 items-center w-full sm:w-auto mt-4 sm:mt-0">
+              <Filtering
+                title="Category"
+                options={["movie", "tv", "all"]}
+                onCategoryChange={handleCategoryChange}
+                selectedOption={category}
+              />
+              <Filtering
+                title="Duration"
+                options={["week", "day"]}
+                onCategoryChange={handleDurationChange}
+                selectedOption={duration}
+              />
+            </div>
           </div>
-        </div>
-      </div>
 
-      <div className="flex-grow overflow-y-auto" id="scrollableDiv">
-        {loading && page === 1 ? (
-          <CardsShimmer />
-        ) : error ? (
-          <ErrorDisplay
-            message={error}
-            onRetry={() => {
-              setPage(1);
-              getTrending(1);
-            }}
-          />
-        ) : (
-          <InfiniteScroll
-            dataLength={trending.length}
-            next={fetchMoreData}
-            hasMore={hasMore}
-            loader={<CardsShimmer />}
-            scrollableTarget="scrollableDiv"
-            style={{ overflow: "visible" }}
-          >
-            <Cards data={trending} title={category} type="Trending" />
-          </InfiniteScroll>
-        )}
+          {loading && page === 1 ? (
+            <CardsShimmer />
+          ) : error ? (
+            <ErrorDisplay
+              message={error}
+              onRetry={() => {
+                setPage(1);
+                getTrending(1);
+              }}
+            />
+          ) : (
+            <InfiniteScroll
+              dataLength={trending.length}
+              next={fetchMoreData}
+              hasMore={hasMore}
+              loader={<CardsShimmer />}
+              scrollableTarget="scrollableDiv"
+              style={{ overflow: "visible" }}
+            >
+              <Cards data={trending} title={category} type="Trending" />
+            </InfiniteScroll>
+          )}
+        </div>
       </div>
     </div>
   );
