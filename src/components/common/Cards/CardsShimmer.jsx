@@ -2,7 +2,7 @@ import React from "react";
 
 const CardsShimmer = () => {
   return (
-    <div className="mt-8 px-4 h-[calc(100vh-200px)] overflow-y-auto scrollbar-hide">
+    <div className="mt-8 px-4">
       <div className="w-48 h-8 mb-6 rounded-xl shimmer-pulse"></div>
       <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-6 pb-8">
         {[...Array(12)].map((_, index) => (

@@ -79,7 +79,7 @@ const Cards = ({ data, title, type }) => {
 
   return (
     <div className="mt-8 px-4">
-      <h2 className="text-2xl font-bold text-white mb-6 bg-[#1F1E24] py-2 border-b border-white/5">
+      <h2 className="text-2xl font-bold text-white mb-6 bg-transparent py-2 border-b border-white/5">
         {type} {title}
       </h2>
       <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-6 pb-8">

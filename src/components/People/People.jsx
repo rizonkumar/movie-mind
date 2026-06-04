@@ -4,12 +4,20 @@ import InfiniteScroll from "react-infinite-scroll-component";
 import { ErrorDisplay } from "../common/ErrorDisplay/ErrorDisplay";
 import CardsShimmer from "../common/Cards/CardsShimmer";
 import Cards from "../common/Cards/Cards";
+import Sidenav from "../common/Navigation/Sidenav";
 import Topnav from "../common/Navigation/Topnav.jsx";
 import axios from "../../utils/axios.jsx";
+
 const People = () => {
   document.title = "Move Mind | person";
 
   const navigate = useNavigate();
+  const [isSidenavOpen, setIsSidenavOpen] = useState(false);
+
+  const handleSidenavToggle = (isOpen) => {
+    setIsSidenavOpen(isOpen);
+    document.body.style.overflow = isOpen ? 'hidden' : 'auto';
+  };
   const [category, setCategory] = useState("popular");
   const [person, setPerson] = useState([]);
   const [page, setPage] = useState(1);
@@ -56,44 +64,49 @@ const People = () => {
   };
 
   return (
-    <div className="w-screen h-screen flex flex-col bg-[#1F1F1F]">
-      <div className="w-full flex items-center justify-between p-4">
-        <h1 className="text-2xl text-zinc-300 font-semibold">
-          <i
-            onClick={() => navigate(-1)}
-            className="ri-arrow-left-line hover:text-[#6556CD] cursor-pointer"
-          ></i>
-          person
-        </h1>
+    <div className="flex flex-col md:flex-row bg-[#0e0e11] min-h-screen w-screen">
+      <Sidenav onToggle={handleSidenavToggle} />
+      <div
+        className={`flex-grow w-full md:w-[85%] h-screen overflow-y-auto overflow-x-hidden flex flex-col ${
+          isSidenavOpen ? "fixed inset-0 z-30" : ""
+        }`}
+        id="scrollableDiv"
+      >
+        <Topnav />
+        <div className="w-full px-4 md:px-[5%] flex-grow bg-[#0e0e11]">
+          <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center py-4 relative z-40">
+            <h1 className="text-2xl sm:text-3xl text-zinc-300 font-semibold mb-4 sm:mb-0 flex items-center gap-3">
+              <i
+                onClick={() => navigate(-1)}
+                className="ri-arrow-left-line hover:text-[#6556CD] cursor-pointer mr-1"
+              ></i>
+              People
+            </h1>
+          </div>
 
-        <div className="flex items-center w-[80%]">
-          <Topnav />
+          {loading && page === 1 ? (
+            <CardsShimmer />
+          ) : error ? (
+            <ErrorDisplay
+              message={error}
+              onRetry={() => {
+                setPage(1);
+                getPerson(1);
+              }}
+            />
+          ) : (
+            <InfiniteScroll
+              dataLength={person.length}
+              next={fetchMoreData}
+              hasMore={hasMore}
+              loader={<CardsShimmer />}
+              scrollableTarget="scrollableDiv"
+              style={{ overflow: "visible" }}
+            >
+              <Cards data={person} title="people" type="People" />
+            </InfiniteScroll>
+          )}
         </div>
-      </div>
-
-      <div className="flex-grow overflow-y-auto" id="scrollableDiv">
-        {loading && page === 1 ? (
-          <CardsShimmer />
-        ) : error ? (
-          <ErrorDisplay
-            message={error}
-            onRetry={() => {
-              setPage(1);
-              getPerson(1);
-            }}
-          />
-        ) : (
-          <InfiniteScroll
-            dataLength={person.length}
-            next={fetchMoreData}
-            hasMore={hasMore}
-            loader={<CardsShimmer />}
-            scrollableTarget="scrollableDiv"
-            style={{ overflow: "visible" }}
-          >
-            <Cards data={person} title="people" type="person" />
-          </InfiniteScroll>
-        )}
       </div>
     </div>
   );

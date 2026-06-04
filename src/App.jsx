@@ -11,11 +11,10 @@ import Moviedetail from "./components/MovieDetails/MovieDetail";
 import TVDetail from "./components/TVDetail/TVdetail";
 import Peopledetail from "./components/PeopleDetail/Peopledetail";
 import Trailer from "./components/common/Trailer/Trailer";
-import AboutRizon from "./components/AboutMe/AboutRizon";
 
 function App() {
   return (
-    <div className="bg-[#1F1E24] w-screen min-h-screen flex">
+    <div className="bg-[#0e0e11] w-screen min-h-screen flex text-zinc-100 font-sans">
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/trending" element={<Trending />} />
@@ -28,7 +27,6 @@ function App() {
         </Route>
         <Route path="/tv/details/:id" element={<TVDetail />} />
         <Route path="/people/details/:id" element={<Peopledetail />} />
-        <Route path="/about-rizon" element={<AboutRizon />} />
       </Routes>
     </div>
   );
