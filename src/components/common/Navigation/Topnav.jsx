@@ -46,7 +46,7 @@ const Topnav = () => {
   }, []);
 
   return (
-    <div className="w-full h-auto relative z-30 flex justify-center items-center bg-transparent py-4 md:py-6 pl-16 pr-4 md:px-4">
+    <div className="w-full h-auto relative z-30 flex justify-center items-center bg-transparent py-4 xl:py-6 pl-16 pr-4 xl:px-4">
       <div className="relative flex items-center w-full max-w-2xl">
         <i className="absolute left-4 top-1/2 -translate-y-1/2 text-zinc-500 text-lg ri-search-line"></i>
         <input

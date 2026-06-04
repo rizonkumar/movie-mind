@@ -202,7 +202,7 @@ const TVDetail = () => {
             <div className="flex justify-center md:justify-start">
               <Link
                 to={`/tv/details/${detail.id}/trailer`}
-                className="bg-gradient-to-r from-violet-600 to-indigo-600 hover:from-violet-500 hover:to-indigo-500 text-white py-3.5 px-6 rounded-2xl shadow-lg shadow-violet-600/25 active:scale-[0.98] transition-all duration-200 inline-flex items-center gap-2 text-sm sm:text-base font-bold cursor-pointer"
+                className="bg-[#6556CD] hover:bg-[#5244b0] text-white py-3.5 px-6 rounded-2xl shadow-md shadow-[#6556CD]/20 active:scale-[0.98] transition-all duration-150 inline-flex items-center gap-2 text-sm sm:text-base font-bold cursor-pointer"
               >
                 <i className="ri-play-circle-line text-lg"></i>
                 Watch Trailer

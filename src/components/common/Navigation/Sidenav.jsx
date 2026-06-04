@@ -19,14 +19,14 @@ const Sidenav = ({ onToggle }) => {
   return (
     <>
       <button
-        className="md:hidden fixed top-4 left-4 z-50 text-white w-10 h-10 rounded-xl bg-zinc-900 border border-zinc-800 flex items-center justify-center cursor-pointer shadow-lg active:scale-95 transition-all"
+        className="xl:hidden fixed top-4 left-4 z-50 text-white w-10 h-10 rounded-xl bg-zinc-900 border border-zinc-800 flex items-center justify-center cursor-pointer shadow-lg active:scale-95 transition-all"
         onClick={toggleSidenav}
       >
         <i className={`ri-${isOpen ? "close" : "menu"}-line text-xl`}></i>
       </button>
       <div
-        className={`w-full md:w-[15%] h-screen bg-zinc-950 border-r border-zinc-800/60 p-4 flex flex-col fixed md:static transition-transform duration-300 ease-in-out ${
-          isOpen ? "translate-x-0" : "-translate-x-full md:translate-x-0"
+        className={`w-full xl:w-[240px] h-screen bg-zinc-950 border-r border-zinc-800/60 p-4 flex flex-col fixed xl:static transition-transform duration-300 ease-in-out ${
+          isOpen ? "translate-x-0" : "-translate-x-full xl:translate-x-0"
         } z-40`}
       >
         <h1 className="text-xl text-white font-bold mb-8 flex items-center px-2">

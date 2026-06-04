@@ -17,7 +17,7 @@ export const ErrorDisplay = ({ message, onRetry }) => {
         </p>
         <button
           onClick={handleRetry}
-          className="w-full py-3 px-6 text-sm font-semibold text-white rounded-2xl bg-gradient-to-r from-violet-600 to-indigo-600 hover:from-violet-500 hover:to-indigo-500 active:scale-[0.98] transition-all shadow-lg shadow-violet-600/30 duration-200 flex items-center justify-center gap-2 cursor-pointer"
+          className="w-full py-3 px-6 text-sm font-semibold text-white rounded-2xl bg-[#6556CD] hover:bg-[#5244b0] active:scale-[0.98] transition-all shadow-md shadow-[#6556CD]/20 duration-150 flex items-center justify-center gap-2 cursor-pointer"
         >
           <i className="ri-refresh-line"></i>
           Try Again
