@@ -1,0 +1,3 @@
+[build]
+  command = "npm install @tailwindcss/oxide-linux-x64-gnu && npm run build"
+  publish = "dist"
