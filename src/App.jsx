@@ -11,6 +11,7 @@ import Moviedetail from "./components/MovieDetails/MovieDetail";
 import TVDetail from "./components/TVDetail/TVdetail";
 import Peopledetail from "./components/PeopleDetail/Peopledetail";
 import Trailer from "./components/common/Trailer/Trailer";
+import LibraryList from "./components/Library/LibraryList";
 
 function App() {
   return (
@@ -25,6 +26,9 @@ function App() {
         <Route path="/movies" element={<Movies />} />
         <Route path="/tvshows" element={<TvShows />} />
         <Route path="/people" element={<People />} />
+        <Route path="/favorites" element={<LibraryList type="favorites" title="Favorites" icon="ri-heart-3-fill" />} />
+        <Route path="/watchlist" element={<LibraryList type="watchlist" title="Watchlist" icon="ri-bookmark-fill" />} />
+        <Route path="/watched" element={<LibraryList type="watched" title="Watched" icon="ri-checkbox-circle-fill" />} />
         <Route path="/movie/details/:id" element={<Moviedetail />}>
           <Route path="/movie/details/:id/trailer" element={<Trailer />} />
         </Route>

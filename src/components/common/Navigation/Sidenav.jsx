@@ -82,6 +82,22 @@ const Sidenav = ({ onToggle }) => {
             <i className="ri-user-line mr-3 text-lg transition-colors group-hover:text-white"></i>
             People
           </NavLink>
+
+          <h2 className="text-zinc-500 font-bold text-xs uppercase tracking-wider mt-6 mb-3 px-3 select-none">
+            My Library
+          </h2>
+          <NavLink to="/favorites" className={navLinkClass} onClick={handleLinkClick}>
+            <i className="ri-heart-3-line mr-3 text-lg transition-colors group-hover:text-white"></i>
+            Favorites
+          </NavLink>
+          <NavLink to="/watchlist" className={navLinkClass} onClick={handleLinkClick}>
+            <i className="ri-bookmark-line mr-3 text-lg transition-colors group-hover:text-white"></i>
+            Watchlist
+          </NavLink>
+          <NavLink to="/watched" className={navLinkClass} onClick={handleLinkClick}>
+            <i className="ri-checkbox-circle-line mr-3 text-lg transition-colors group-hover:text-white"></i>
+            Watched
+          </NavLink>
         </nav>
 
         {/* Divider */}
