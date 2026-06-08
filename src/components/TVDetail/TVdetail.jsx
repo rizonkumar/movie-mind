@@ -7,6 +7,7 @@ import MovieDetailShimmer from "../MovieDetails/MovieDetailShimmer.jsx";
 import MovieDetailError from "../MovieDetails/MovieDetailError.jsx";
 import HorizontalCards from "../common/HorizontalCards/HorizontalCards";
 import HorizontalCardsShimmer from "../common/HorizontalCards/HorizontalCardsShimmer";
+import LibraryActions from "../common/LibraryActions";
 
 
 const TVDetail = () => {
@@ -206,9 +207,8 @@ const TVDetail = () => {
             ))}
           </div>
 
-          {/* CTA Play trailer */}
-          {videos && (
-            <div className="flex justify-center md:justify-start">
+          <div className="flex flex-wrap items-center justify-center md:justify-start gap-4">
+            {videos && (
               <Link
                 to={`/tv/details/${detail.id}/trailer`}
                 className="bg-[#6556CD] hover:bg-[#5244b0] text-white py-3.5 px-6 rounded-2xl shadow-md shadow-[#6556CD]/20 active:scale-[0.98] transition-all duration-150 inline-flex items-center gap-2 text-sm sm:text-base font-bold cursor-pointer"
@@ -216,8 +216,9 @@ const TVDetail = () => {
                 <i className="ri-play-circle-line text-lg"></i>
                 Watch Trailer
               </Link>
-            </div>
-          )}
+            )}
+            <LibraryActions detail={detail} mediaType="tv" />
+          </div>
 
           {/* Synopsis */}
           <div className="flex flex-col gap-3">
